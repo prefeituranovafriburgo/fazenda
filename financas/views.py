@@ -6,7 +6,7 @@ from .models import Servico
 def index(request):
   
     context = { 
-        'titulo': 'ops',
+        'titulo': 'Fazenda',
         'servicos': Servico.objects.filter(ativo=True),                  
     }
 
