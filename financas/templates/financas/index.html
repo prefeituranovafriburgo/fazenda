@@ -293,6 +293,349 @@
     <div class="section-header mt-5">
       <h2 class="section-title">últimas Notícias</h2>      
     </div>
+    <div class="news-carousel">
+      <button class="carousel-btn prev" onclick="prevSlide()">❮</button>
+
+      <div class="carousel-track">
+
+        <a href="./nfs-e/" class="carousel-slide active">
+          <img src="/static/images/nfselogo.png">
+          <div class="carousel-caption">
+            <h3>Migração para a NFS-e Nacional</h3>
+            <p>Prepare-se para a transição.</p>
+          </div>
+        </a>
+
+        <a href="./nfs-e/" class="carousel-slide ">
+          <img src="/static/images/nfselogo.png">
+          <div class="carousel-caption">
+            <h3>Migração para a NFS-e Nacional</h3>
+            <p>Prepare-se para a transição.</p>
+          </div>
+        </a>
+
+        <a href="./nfs-e/" class="carousel-slide ">
+          <img src="/static/images/nfselogo.png">
+          <div class="carousel-caption">
+            <h3>Migração para a NFS-e Nacional</h3>
+            <p>Prepare-se para a transição.</p>
+          </div>
+        </a>
+
+      </div>
+
+      <button class="carousel-btn next" onclick="nextSlide()">❯</button>
+    </div>
+    <style>
+  /* CARROSSEL */
+    .news-carousel {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
+      border-radius: 16px;
+      margin: 20px 0 40px 0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .carousel-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      position: relative;
+      display: block;
+      text-decoration: none;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .carousel-slide:hover img {
+      transform: scale(1.05);
+    }
+
+    .carousel-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 40px 30px 30px 30px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 70%, transparent 100%);
+      color: #fff;
+      transform: translateY(0);
+      transition: transform 0.3s ease;
+    }
+
+    .carousel-caption h3 {
+      font-size: 24px;
+      margin: 0 0 8px 0;
+      font-weight: 600;
+    }
+
+    .carousel-caption p {
+      font-size: 16px;
+      margin: 0;
+      opacity: 0.9;
+    }
+
+    /* BOTÕES DE NAVEGAÇÃO */
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(11, 97, 214, 0.9);
+      color: #fff;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 22px;
+      z-index: 10;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .carousel-btn:hover {
+      background: #0b61d6;
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 5px 15px rgba(11, 97, 214, 0.4);
+    }
+
+    .carousel-btn:active {
+      transform: translateY(-50%) scale(0.95);
+    }
+
+    .carousel-btn.prev { left: 20px; }
+    .carousel-btn.next { right: 20px; }
+
+    /* INDICADORES */
+    .carousel-indicators {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .indicator.active {
+      background: #fff;
+      width: 32px;
+      border-radius: 6px;
+    }
+
+    .indicator:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.8);
+      transform: scale(1.2);
+    }
+
+    /* CONTROLES DE AUTOPLAY */
+    .carousel-controls {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+    }
+
+    .play-pause-btn {
+      background: rgba(11, 97, 214, 0.9);
+      color: #fff;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+    }
+
+    .play-pause-btn:hover {
+      background: #0b61d6;
+      transform: scale(1.1);
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      .news-carousel {
+        height: 280px;
+      }
+
+      .carousel-caption {
+        padding: 25px 20px 20px 20px;
+      }
+
+      .carousel-caption h3 {
+        font-size: 18px;
+      }
+
+      .carousel-caption p {
+        font-size: 14px;
+      }
+
+      .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+      }
+
+      .carousel-btn.prev { left: 10px; }
+      .carousel-btn.next { right: 10px; }
+
+      .indicator {
+        width: 8px;
+        height: 8px;
+      }
+
+      .indicator.active {
+        width: 24px;
+      }
+    }
+
+    /* ACESSIBILIDADE */
+    .carousel-btn:focus,
+    .indicator:focus,
+    .play-pause-btn:focus {
+      outline: 3px solid rgba(11, 97, 214, 0.5);
+      outline-offset: 2px;
+    }
+    </style>
+    
+
+  <script>
+    let currentIndex = 0;
+    let autoplayInterval;
+    let isPlaying = true;
+    const track = document.querySelector(".carousel-track");
+    const slides = document.querySelectorAll(".carousel-slide");
+    const indicatorsContainer = document.querySelector(".carousel-indicators");
+
+    // Criar indicadores dinamicamente
+    function createIndicators() {
+      slides.forEach((_, index) => {
+        const indicator = document.createElement('button');
+        indicator.classList.add('indicator');
+        indicator.setAttribute('aria-label', `Ir para slide ${index + 1}`);
+        indicator.setAttribute('role', 'tab');
+        if (index === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => showSlide(index));
+        indicatorsContainer.appendChild(indicator);
+      });
+    }
+
+    // Atualizar indicadores
+    function updateIndicators() {
+      const indicators = document.querySelectorAll('.indicator');
+      indicators.forEach((indicator, index) => {
+        indicator.classList.toggle('active', index === currentIndex);
+        indicator.setAttribute('aria-selected', index === currentIndex);
+      });
+    }
+
+    // Mostrar slide
+    function showSlide(index) {
+      if (index >= slides.length) currentIndex = 0;
+      else if (index < 0) currentIndex = slides.length - 1;
+      else currentIndex = index;
+
+      const offset = -currentIndex * 100;
+      track.style.transform = `translateX(${offset}%)`;
+      updateIndicators();
+    }
+
+    // Navegação
+    function nextSlide() {
+      showSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+      showSlide(currentIndex - 1);
+    }
+
+    // Autoplay
+    function startAutoplay() {
+      autoplayInterval = setInterval(nextSlide, 5000);
+      isPlaying = true;
+      document.getElementById('playPauseIcon').textContent = '⏸';
+    }
+
+    function stopAutoplay() {
+      clearInterval(autoplayInterval);
+      isPlaying = false;
+      document.getElementById('playPauseIcon').textContent = '▶';
+    }
+
+    function toggleAutoplay() {
+      if (isPlaying) {
+        stopAutoplay();
+      } else {
+        startAutoplay();
+      }
+    }
+
+    // Pausar ao passar o mouse
+    const carousel = document.querySelector('.news-carousel');
+    carousel.addEventListener('mouseenter', () => {
+      if (isPlaying) stopAutoplay();
+    });
+
+    carousel.addEventListener('mouseleave', () => {
+      if (!isPlaying) return;
+      startAutoplay();
+    });
+
+    // Suporte para teclado
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'ArrowRight') nextSlide();
+    });
+
+    // Suporte para touch/swipe (mobile)
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    carousel.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    carousel.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) nextSlide();
+      if (touchEndX > touchStartX + 50) prevSlide();
+    }
+
+    // Inicializar
+    createIndicators();
+    startAutoplay();
+  </script>
+
     <div class="news-section">      
       <div class="news-grid">
 
@@ -407,6 +750,259 @@
   </div>  
 </section>
 
+<section class="acesso-rapido">
+  <div class="container-acesso">
+  <h2>ACESSO RÁPIDO</h2>
+
+  <div class="acesso-rapido-grid">
+    <a href="#" class="acesso-item">
+      <i class="fa-solid fa-magnifying-glass-dollar fa-2x mb-3"></i>
+      <span>PORTAL DA TRANSPARÊNCIA</span>
+    </a>
+
+    <a href="#" class="acesso-item">
+      <i class="fa-solid fa-people-group fa-2x mb-3"></i>
+      <span>CARTA DE SERVIÇOS DO CIDADÃO</span>
+    </a>
+
+    <a href="#" class="acesso-item">
+      <i class="fa-solid fa-gavel fa-2x mb-3"></i>
+      <span>LEI GERAL DE ACESSO À INFORMAÇÃO</span>
+    </a>
+
+    <a href="#" class="acesso-item">
+      <i class="fa-solid fa-book-open fa-2x mb-3"></i>
+      <span>DIÁRIO OFICIAL</span>
+    </a>
+
+    <a href="#" class="acesso-item">
+      <i class="fa-solid fa-scale-balanced fa-2x mb-3"></i>
+      <span>LEGISLAÇÃO</span>
+    </a>
+
+    <a href="#" class="acesso-item">
+      <i class="fa-solid fa-square-check fa-2x mb-3"></i>
+      <span>CÓDIGO DE ÉTICA DOS SERVIDORES PÚBLICOS</span>
+    </a>
+  </div>
+  </div>
+</section>
+
+
+
+
+<!-- ========== AGENDA TRIBUTÁRIA ========== -->
+<section class="agenda-tributaria">
+  <h2>Agenda Tributária</h2>
+
+  <div class="agenda-wrapper">
+
+    <div class="calendar-card">
+      <div class="calendar-header">
+        <button>&lsaquo;</button>
+        <strong>Dezembro de 2025</strong>
+        <button>&rsaquo;</button>
+      </div>
+
+      <div class="calendar-grid">
+        <span>Dom</span><span>Seg</span><span>Ter</span>
+        <span>Qua</span><span>Qui</span><span>Sex</span><span>Sab</span>
+
+        <!-- Dias (exemplo) -->
+        <span></span><span>1</span><span>2</span><span>3</span>
+        <span>4</span><span class="active">5</span><span>6</span>
+      </div>
+    </div>
+
+    <div class="agenda-info">
+      <strong>Há 2 obrigação(ões) tributária(s) para 05 de dezembro de 2025</strong>
+
+      <div class="agenda-item">
+        Apresentar DAM ref. ao mês anterior, de estabelecimentos industriais.
+        (Art. 288, § 2°, I do RICMS/AM).
+      </div>
+
+      <div class="agenda-item">
+        Recolhimento do ICMS-Substituição Tributária (ICMS-Fonte), referente
+        ao mês anterior (Art.107, II 'a' do RICMS/AM).
+      </div>
+    </div>
+
+  </div>
+</section>
+<style>
+  /* ===== ACESSO RÁPIDO ===== */
+.acesso-rapido{
+  padding:50px 20px;
+  text-align:center;
+  position: relative;
+  background-image:
+    linear-gradient(180deg, #f2f2f2e7 , #f2f2f2e7),
+    /* linear-gradient(135deg, rgba(234, 237, 240, 0.9), rgba(206, 215, 221, 0.9)), */
+    url('https://www.pmnf.rj.gov.br/uploads/banner/19183/maior_iWf2PBjCe84k8AVH0x0LS9YQa0_QAU9s.jpg');
+
+  background-position: center;
+  background-size: cover;
+  z-index: 0;
+}
+
+.acesso-rapido .container-acesso h2{
+  position:initial;
+  font-size:18px;
+  margin-bottom:30px;
+  letter-spacing:2px;  
+  color: black;
+}
+
+
+.acesso-rapido-grid{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(150px,1fr));
+  gap:25px;
+}
+
+.acesso-item{
+  background:#fff;
+  padding:25px 10px;
+  text-decoration:none;
+  color:#000;
+  border-bottom:4px solid transparent;
+  transition:.3s;
+  z-index: 10;
+}
+
+.acesso-item:hover{
+  border-bottom:4px solid #0b61d6;
+  transform:translateY(-3px);
+}
+
+.acesso-item img{
+  width:45px;
+  height:45px;
+  margin-bottom:10px;
+}
+
+.acesso-item span{
+  font-size:13px;
+  font-weight:600;
+  display:block;
+}
+
+
+/* ===== PÁGINAS RELACIONADAS ===== */
+.paginas-relacionadas{
+  padding:50px 20px;
+}
+
+.paginas-relacionadas h2{
+  color:#d97226;
+  margin-bottom:30px;
+  border-bottom:3px solid #d97226;
+  display:inline-block;
+  padding-bottom:4px;
+}
+
+.paginas-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:40px;
+  align-items:center;
+  margin-top:40px;
+}
+
+.paginas-grid img{
+  max-height:60px;
+  transition:.3s;
+}
+
+.paginas-grid img:hover{
+  transform:scale(1.05);
+}
+
+
+/* ===== AGENDA TRIBUTÁRIA ===== */
+.agenda-tributaria{
+  background:#f7f7f7;
+  padding:50px 20px 80px 20px;
+}
+
+.agenda-tributaria h2{
+  text-align:center;
+  font-size:30px;
+  margin-bottom:30px;
+}
+
+.agenda-wrapper{
+  max-width:1000px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1.3fr;
+  gap:30px;
+}
+
+.calendar-card{
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
+}
+
+.calendar-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.calendar-header button{
+  border:none;
+  background:transparent;
+  font-size:20px;
+  cursor:pointer;
+}
+
+.calendar-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:8px;
+  text-align:center;
+  font-size:14px;
+}
+
+.calendar-grid span{
+  padding:8px;
+  border-radius:6px;
+}
+
+.calendar-grid .active{
+  background:#004f63;
+  color:#fff;
+  font-weight:600;
+}
+
+.agenda-info{
+  background:#fff;
+  padding:25px;
+  border-radius:8px;
+  font-size:14px;
+}
+
+.agenda-item{
+  margin-top:15px;
+  padding-top:10px;
+  border-top:1px solid #e0e0e0;
+}
+
+/* Responsivo */
+@media(max-width:768px){
+  .agenda-wrapper{
+    grid-template-columns:1fr;
+  }
+}
+
+</style>
+
 
 <script>
   document.getElementById('s-index').classList.add('s-nav-active');
@@ -426,33 +1022,46 @@
 
       <a href="/tributos/iptu/" class="modal-option">
         <i class="fas fa-city"></i>
-        <span>IPTU</span>
+        <span>IPTU - Informações</span>
+      </a>
+      
+      <a href="/tributos/iptu/" class="modal-option">
+        <i class="fas fa-city"></i>
+        <span>
+          IPTU - 2ª via
+        </span>        
       </a>
 
+      <a href="/tributos/iptu/" class="modal-option">
+        <i class="fas fa-city"></i>
+        <span>Certidões de Débito</span>
+      </a>
+      <a href="/tributos/iptu/" class="modal-option">
+        <i class="fas fa-city"></i>
+        <span>ITBI - Informações</span>
+      </a>
+      <a href="/tributos/iptu/" class="modal-option">
+        <i class="fas fa-city"></i>
+        <span>ITBI - Solicitar </span>
+      </a>
+      <a href="/tributos/iptu/" class="modal-option">
+        <i class="fas fa-city"></i>
+        <span>ITBI - Comprovante </span>
+      </a>
       <a href="/tributos/iss/" class="modal-option">
         <i class="fas fa-file-invoice-dollar"></i>
-        <span>ISS</span>
+        <span>ISS - Informações</span>
       </a>
-
+      <a href="/tributos/iss/" class="modal-option">
+        <i class="fas fa-file-invoice-dollar"></i>
+        <span>ISS - Nota Fiscal</span>
+      </a>
       <a href="/tributos/divida-ativa/" class="modal-option">
         <i class="fas fa-balance-scale"></i>
-        <span>Dívida Ativa</span>
+        <span>TFVS</span>
       </a>
 
-      <a href="/tributos/certidoes/" class="modal-option">
-        <i class="fas fa-scroll"></i>
-        <span>Certidões</span>
-      </a>
-
-      <a href="/tributos/alvaras/" class="modal-option">
-        <i class="fas fa-store"></i>
-        <span>Alvarás</span>
-      </a>
-
-      <a href="/tributos/taxas/" class="modal-option">
-        <i class="fas fa-coins"></i>
-        <span>Taxas Diversas</span>
-      </a>
+     
 
     </div>
 

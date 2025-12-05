@@ -29,3 +29,14 @@ class Servico(models.Model):
 
     def __str__(self):
         return '%s' % (self.titulo)
+
+
+class Noticia(models.Model):
+    class Meta:
+        verbose_name = 'Notícia'
+        verbose_name_plural = "Notícias"
+        ordering = ['id', 'titulo']
+
+         
+    titulo = models.CharField(max_length=150)
+    corpo_da_noticia = models.TextField()
