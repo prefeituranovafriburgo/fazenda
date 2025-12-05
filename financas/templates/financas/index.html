@@ -245,6 +245,7 @@
       }
     }
   </style>
+  
 {% endblock %}
 {% block main %}
 <!-- Hero Section -->
@@ -525,7 +526,7 @@
     </style>
     
 
-  <script>
+  <!-- <script>
     let currentIndex = 0;
     let autoplayInterval;
     let isPlaying = true;
@@ -634,7 +635,32 @@
     // Inicializar
     createIndicators();
     startAutoplay();
-  </script>
+  </script> -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const track = document.querySelector('.carousel-track');
+    const slides = document.querySelectorAll('.carousel-slide');
+
+    let currentIndex = 0;
+
+    // Garante que existem slides
+    if (!track || slides.length === 0) return;
+
+    function updateSlide() {
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    window.nextSlide = function () {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateSlide();
+    }
+
+    window.prevSlide = function () {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        updateSlide();
+    }
+});
+</script>
 
     <div class="news-section">      
       <div class="news-grid">
@@ -829,44 +855,140 @@
 
 
 <!-- ========== AGENDA TRIBUTÁRIA ========== -->
-<section class="agenda-tributaria">
+<!-- ========== AGENDA TRIBUTÁRIA ========== -->
+<section id="agenda" class="agenda-tributaria">
   <h2>Agenda Tributária</h2>
 
   <div class="agenda-wrapper">
 
     <div class="calendar-card">
       <div class="calendar-header">
-        <button>&lsaquo;</button>
-        <strong>Dezembro de 2025</strong>
-        <button>&rsaquo;</button>
+
+        <a href="?mes={{ mes_anterior }}&ano={{ ano_anterior }}" style="text-decoration: none;">
+          &lsaquo;
+        </a>
+
+        <strong>{{ mes_nome }} de {{ ano }}</strong>
+
+        <a href="?mes={{ mes_proximo }}&ano={{ ano_proximo }}" style="text-decoration: none;">
+          &rsaquo;
+        </a>
+
       </div>
 
       <div class="calendar-grid">
-        <span>Dom</span><span>Seg</span><span>Ter</span>
-        <span>Qua</span><span>Qui</span><span>Sex</span><span>Sab</span>
+        <span>Dom</span>
+        <span>Seg</span>
+        <span>Ter</span>
+        <span>Qua</span>
+        <span>Qui</span>
+        <span>Sex</span>
+        <span>Sab</span>
 
-        <!-- Dias (exemplo) -->
-        <span></span><span>1</span><span>2</span><span>3</span>
-        <span>4</span><span class="active">5</span><span>6</span>
+        {% for dia in dias_mes %}
+          {% if dia == 0 %}
+            <span></span>
+          {% else %}
+            <span  style="cursor: pointer;"
+              class="dia {% if dia == dia_selecionado %}active{% endif %}"
+              onclick="carregarAgenda('{{ ano }}-{{ mes|stringformat:'02d' }}-{{ dia|stringformat:'02d' }}'); marcarDia(this)"
+            >
+              {{ dia }}
+            </span>
+          {% endif %}
+        {% endfor %}
       </div>
     </div>
 
     <div class="agenda-info">
-      <strong>Há 2 obrigação(ões) tributária(s) para 05 de dezembro de 2025</strong>
+      <strong id="agenda-titulo">
+        Há {{ obrigacoes|length }} obrigação(ões) tributária(s) para {{ data_selecionada|date:"d \\d\\e F \\d\\e Y" }}
+      </strong>
 
-      <div class="agenda-item">
-        Apresentar DAM ref. ao mês anterior, de estabelecimentos industriais.
-        (Art. 288, § 2°, I do RICMS/AM).
-      </div>
 
-      <div class="agenda-item">
-        Recolhimento do ICMS-Substituição Tributária (ICMS-Fonte), referente
-        ao mês anterior (Art.107, II 'a' do RICMS/AM).
+      <div id="agenda-container">
+
+        {% for item in obrigacoes %}
+          <div class="agenda-item">
+            <strong>{{ item.titulo }}</strong><br>
+            {{ item.descricao }}
+          </div>
+        {% empty %}
+          <p>Nenhuma obrigação para este dia.</p>
+        {% endfor %}
+
       </div>
     </div>
 
   </div>
 </section>
+<script>
+  function formatarDataPtBr(dataISO) {
+  const meses = [
+    "Janeiro", "Fevereiro", "Março", "Abril",
+    "Maio", "Junho", "Julho", "Agosto",
+    "Setembro", "Outubro", "Novembro", "Dezembro"
+  ]
+
+  const data = new Date(dataISO + "T00:00:00")
+  const dia = data.getDate()
+  const mes = meses[data.getMonth()]
+  const ano = data.getFullYear()
+
+  return `${dia.toString().padStart(2, '0')} de ${mes} de ${ano}`
+}
+
+  async function carregarAgenda(data) {
+  try {
+    const response = await fetch(`/agenda/api/?data=${data}`)
+    const resultado = await response.json()
+
+    const container = document.getElementById("agenda-container")
+    const titulo = document.getElementById("agenda-titulo")
+
+    container.innerHTML = ""
+
+    const registros = Array.isArray(resultado)
+      ? resultado
+      : resultado.registros || resultado.dados || []
+
+    // Atualiza o título
+    const dataFormatada = formatarDataPtBr(data)
+    titulo.innerHTML = `Há ${registros.length} obrigação(ões) tributária(s) para ${dataFormatada}`
+
+    if (registros.length === 0) {
+      container.innerHTML = "<p>Nenhuma obrigação para este dia.</p>"
+      return
+    }
+
+    registros.forEach(item => {
+      const div = document.createElement("div")
+      div.classList.add("agenda-item")
+
+      div.innerHTML = `
+        <strong>${item.titulo}</strong><br>
+        ${item.descricao}
+      `
+
+      container.appendChild(div)
+    })
+
+  } catch (error) {
+    console.error("Erro ao carregar agenda:", error)
+  }
+}
+
+
+  function marcarDia(elemento) {
+    document.querySelectorAll(".calendar-grid .dia").forEach(dia => {
+      dia.classList.remove("active")
+    })
+
+    elemento.classList.add("active")
+  }
+</script>
+
+
 <style>
   /* ===== ACESSO RÁPIDO ===== */
 .acesso-rapido{
