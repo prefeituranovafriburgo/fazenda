@@ -13,7 +13,8 @@
   <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
   <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}">
   
-  <title>{% block title %}{{titulo}} - Prefeitura de Nova Friburgo{% endblock %}</title>
+  <!-- <title>{% block title %}{{titulo}} - Prefeitura de Nova Friburgo{% endblock %}</title> -->
+  {% block title %}NFS-e - Prefeitura de Nova Friburgo{% endblock %}</title>
   
   <!-- Preconnect for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -604,7 +605,7 @@
     <div class="header-main">
       <div class="container-fluid">
         <div class="row align-items-center">
-          <div class="col-md-3">
+          <div class="col-md-5">
             <div class="logo-section">
               <img src="{% static 'images/brasao-nf.png' %}" alt="Brasão Nova Friburgo" class="logo-nf">
               <h1 class="brand-text">PREFEITURA DE NOVA FRIBURGO</h1>
@@ -649,7 +650,7 @@
             </nav> -->
           </div>
           
-          <div class="col-md-3">
+          <div class="col-md-1">
             <div class="user-section">
               <div class="social-links me-3">
                 <!-- <a href="https://www.facebook.com/desenvolvenf/" target="_blank" class="social-link">

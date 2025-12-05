@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Servico, PaginasRelacionadas
+from .models import Servico, PaginasRelacionadas, AcessoRapido
 import calendar
 from datetime import date, datetime
 from agenda_tributaria.models import AgendaTributaria
@@ -62,6 +62,7 @@ def index(request):
         'mes_proximo': mes_proximo,
         'ano_proximo': ano_proximo,
         "paginas_relacionadas": PaginasRelacionadas.objects.all(),
+        'acessos_rapidos': AcessoRapido.objects.all(),
     }
 
 

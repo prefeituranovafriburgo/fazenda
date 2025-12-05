@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Servico, PaginasRelacionadas
+from .models import Servico, PaginasRelacionadas, AcessoRapido
 
 
 @admin.register(Servico)
@@ -46,3 +46,9 @@ class NoticiaAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
     )
+
+
+@admin.register(AcessoRapido)
+class AcessoRapidoAdmin(admin.ModelAdmin):
+    list_display = ('titulo', 'link', 'icone')
+    search_fields = ('titulo',)

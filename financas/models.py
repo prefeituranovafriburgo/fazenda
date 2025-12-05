@@ -212,3 +212,15 @@ class PaginasRelacionadas(models.Model):
 
     def __str__(self):
         return self.titulo
+
+
+class AcessoRapido(models.Model):
+    titulo = models.CharField(max_length=100)
+    link = models.URLField()
+    icone = models.CharField(
+        max_length=50,
+        help_text="Coloque aqui o nome da classe do ícone FontAwesome. Ex: 'fa-solid fa-book-open'"
+    )
+
+    def __str__(self):
+        return self.titulo

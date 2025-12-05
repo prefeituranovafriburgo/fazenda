@@ -815,44 +815,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <section class="acesso-rapido">
   <div class="container-acesso">
-  <h2>ACESSO RÁPIDO</h2>
+    <h2>ACESSO RÁPIDO</h2>
 
-  <div class="acesso-rapido-grid">
-    <a href="#" class="acesso-item">
-      <i class="fa-solid fa-magnifying-glass-dollar fa-2x mb-3"></i>
-      <span>PORTAL DA TRANSPARÊNCIA</span>
-    </a>
+    <div class="acesso-rapido-grid">
 
-    <a href="#" class="acesso-item">
-      <i class="fa-solid fa-people-group fa-2x mb-3"></i>
-      <span>CARTA DE SERVIÇOS DO CIDADÃO</span>
-    </a>
+      {% for item in acessos_rapidos %}
+      <a href="{{ item.link }}" class="acesso-item">
+        <i class="{{ item.icone }} fa-2x mb-3"></i>
+        <span>{{ item.titulo }}</span>
+      </a>
+      {% endfor %}
 
-    <a href="#" class="acesso-item">
-      <i class="fa-solid fa-gavel fa-2x mb-3"></i>
-      <span>LEI GERAL DE ACESSO À INFORMAÇÃO</span>
-    </a>
-
-    <a href="#" class="acesso-item">
-      <i class="fa-solid fa-book-open fa-2x mb-3"></i>
-      <span>DIÁRIO OFICIAL</span>
-    </a>
-
-    <a href="#" class="acesso-item">
-      <i class="fa-solid fa-scale-balanced fa-2x mb-3"></i>
-      <span>LEGISLAÇÃO</span>
-    </a>
-
-    <a href="#" class="acesso-item">
-      <i class="fa-solid fa-square-check fa-2x mb-3"></i>
-      <span>CÓDIGO DE ÉTICA DOS SERVIDORES PÚBLICOS</span>
-    </a>
-  </div>
+    </div>
   </div>
 </section>
 
+<style>
+.acesso-rapido-grid {
+  display: grid !important;
+  gap: 20px !important;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)) !important;
+}
 
-
+/* Maior que 800px → FORÇA 6 COLUNAS FIXAS */
+@media (min-width: 800px) {
+  .acesso-rapido-grid {
+    grid-template-columns: repeat(6, 1fr) !important;
+  }
+}
+</style>
 
 <!-- ========== AGENDA TRIBUTÁRIA ========== -->
 <!-- ========== AGENDA TRIBUTÁRIA ========== -->
