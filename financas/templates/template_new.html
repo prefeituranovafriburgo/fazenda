@@ -803,22 +803,22 @@
           </div>
           
           <div class="col-lg-4 mb-4">
-            {% if plataformas.exists %}
+            {% if links_plataformas.exists %}
             <div class="footer-section">
               <h5>Plataformas</h5>
-              {% for plataforma in plataformas %}
-              <a href="{{plataforma.link}}" class="footer-link" {%if abrir_em_nova_aba %}target="_blank"{% endif %}>{{plataforma.titulo}}</a>              
+              {% for plataforma in links_plataformas %}
+              <a href="{{plataforma.url}}" class="footer-link" {%if abrir_em_nova_aba %}target="_blank"{% endif %}>{{plataforma.titulo}}</a>              
               {% endfor %}
             </div>
             {% endif %}
           </div>
           
           <div class="col-lg-4 mb-4">
-            {% if sistemas.exists %}
+            {% if links_sistemas.exists %}
             <div class="footer-section">
               <h5>Sistemas</h5>
-              {% for sistema in sistemas %}
-              <a href="{{sistema.link}}" class="footer-link" {%if sistema.abrir_em_nova_aba %}target="_blank"{% endif %}>{{plataforma.titulo}}</a>              
+              {% for sistema in links_sistemas %}
+              <a href="{{sistema.url}}" class="footer-link" {%if sistema.abrir_em_nova_aba %}target="_blank"{% endif %}>{{sistema.titulo}}</a>              
               {% endfor %}
             </div>
             {% endif %}

@@ -11,7 +11,7 @@ sistemas = LinkRodape.objects.filter(
     tipo='SISTEMA'
 ).order_by('ordem')
 
-config, created = SiteConfiguracao.objects.get_or_create(id=1)
+config, created = SiteConfiguracao.objects.get_or_create(pk=1)
 
 def site_config(request):
 
