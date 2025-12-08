@@ -803,23 +803,25 @@
           </div>
           
           <div class="col-lg-4 mb-4">
+            {% if plataformas.exists %}
             <div class="footer-section">
               <h5>Plataformas</h5>
-              <a href="#" class="footer-link">Capacitação Profissional</a>
-              <a href="#" class="footer-link">Cidade Inteligente</a>
-              <a href="#" class="footer-link">Eventos</a>
-              <a href="#" class="footer-link">Finanças</a>
+              {% for plataforma in plataformas %}
+              <a href="{{plataforma.link}}" class="footer-link" {%if abrir_em_nova_aba %}target="_blank"{% endif %}>{{plataforma.titulo}}</a>              
+              {% endfor %}
             </div>
+            {% endif %}
           </div>
           
           <div class="col-lg-4 mb-4">
+            {% if sistemas.exists %}
             <div class="footer-section">
               <h5>Sistemas</h5>
-              <a href="https://casadotrabalhador.pmnf.rj.gov.br/" class="footer-link">Trabalho e Renda</a>
-              <a href="#" class="footer-link">Iluminação Pública</a>
-              <a href="https://senhas.novafriburgo.rj.gov.br/login/?next=/" class="footer-link">Senhas de Turismo</a>
-              <a href="https://culturanf.novafriburgo.rj.gov.br/" class="footer-link">Mapeamento Cultural</a>
+              {% for sistema in sistemas %}
+              <a href="{{sistema.link}}" class="footer-link" {%if sistema.abrir_em_nova_aba %}target="_blank"{% endif %}>{{plataforma.titulo}}</a>              
+              {% endfor %}
             </div>
+            {% endif %}
           </div>
         </div>
       </div>
