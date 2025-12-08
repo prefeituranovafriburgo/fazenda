@@ -604,14 +604,42 @@
     <div class="header-main">
       <div class="container-fluid">
         <div class="row align-items-center">
-          <div class="col-md-5">
-            <div class="logo-section">
-              <img src="{% static 'images/brasao-nf.png' %}" alt="Brasão Nova Friburgo" class="logo-nf">
-              <h1 class="brand-text">PREFEITURA DE NOVA FRIBURGO</h1>
+          <!-- HAMBÚRGUER + LOGO (unificados) -->
+            <div class="col-md-6 d-flex align-items-center">
+
+            <!-- Hamburguer -->
+              <div class="dropdown dropdown-modern me-3">
+                <a class="nav-link-modern" href="#" role="button" data-bs-toggle="dropdown">
+                  <i class="fas fa-bars"></i>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="https://fazenda.novafriburgo.rj.gov.br/">
+                    <i class="#"></i>Inicio
+                  </a></li>
+                  <li><a class="dropdown-item" href="#">
+                    <i class="#"></i>Informações
+                  </a></li>
+                  <li><a class="dropdown-item" href="#">
+                    <i class="#"></i>Transparência
+                  </a></li>
+                  <li><a class="dropdown-item" href="#">
+                    <i class="#"></i>Nossos Serviços
+                  </a></li>
+                  <li><a class="dropdown-item" href="#">
+                    <i class="#"></i>Fale Conosco
+                  </a></li>
+                </ul>
+              </div>
+
+              <!-- Logo -->
+              <div class="logo-section d-flex align-items-center">
+                <img src="{% static 'images/brasao-nf.png' %}" alt="Brasão Nova Friburgo" class="logo-nf">
+                <h1 class="brand-text ms-2">PREFEITURA DE NOVA FRIBURGO</h1>
+              </div>
+
             </div>
-          </div>
           
-          <div class="col-md-6">
+          <div class="col-md-5">
             <!-- <nav class="main-nav">
               <a href="https://casadotrabalhador.pmnf.rj.gov.br" class="nav-link-modern">
                 <i class="fas fa-briefcase me-2"></i>Trabalho e Renda
