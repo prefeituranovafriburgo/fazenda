@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('autenticacao.urls')),    
     path('', include('financas.urls')),    
     path('agenda/', include('agenda_tributaria.urls')),
+    path('tools/', include('ferramentas_site.urls')),
     # path('administracao/', include('administracao.urls')),    
     path('admin/', admin.site.urls),
 ]

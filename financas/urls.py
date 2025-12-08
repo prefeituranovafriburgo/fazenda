@@ -8,7 +8,7 @@ app_name='financas'
 urlpatterns = [
     path('', views.index, name='home'),    
     
-    path('nfs-e/', views.nfse, name='nfse'), 
+    path('nfs-e/', views.nfse, name='nfse'),     
 ]
 
 
