@@ -593,7 +593,7 @@
           <div class="col-md-6 text-end">
             <div class="d-flex align-items-center justify-content-end text-white small">
               <i class="fas fa-phone me-2"></i>
-              <span>(22) 2521-1558</span>
+              <span>{{site_config.telefone}}</span>
             </div>
           </div>
         </div>
@@ -652,7 +652,7 @@
           <div class="col-md-1">
             <div class="user-section">
               <div class="social-links me-3">                
-                <a href="https://www.instagram.com/sefaz.nf/" target="_blank" class="social-link">
+                <a href="https://www.instagram.com/{{site_config.instagram}}/" target="_blank" class="social-link">
                   <i class="fab fa-instagram"></i>
                 </a>
               </div>
@@ -738,7 +738,48 @@
 
   <!-- Footer Block -->
   {% block footer %}{% endblock %}
+<div class="whatsapp-float">
+  <a href="https://wa.me/{{ site_config.whatsapp }}" target="_blank" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+</div>
+<style>
+  .whatsapp-float {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 9998;  
+}
 
+.whatsapp-float a {
+  width: 60px;
+  height: 60px;
+  background: #25D366;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  text-decoration: none;
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-normal);
+}
+
+.whatsapp-float a:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: var(--shadow-xl);
+  background: #1ebe5b;
+}
+
+@media (max-width: 768px) {
+  .whatsapp-float {
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+</style>
   <!-- Modern Footer -->
   <footer class="modern-footer">
     <div class="container">
@@ -751,12 +792,10 @@
                 <h5>Prefeitura de Nova Friburgo</h5>
               </div>
               <p class="text-light mb-3">
-                Av. Alberto Braune, 225 - Centro<br>
-                Nova Friburgo - RJ, 28613-001<br>
-                Horário: 09:00 às 17:00 (Seg. à Sex.)
+                {{site_config.endereco|safe}}
               </p>
               <div class="social-links">        
-                <a href="https://www.instagram.com/sefaz.nf/" target="_blank" class="social-link">
+                <a href="https://www.instagram.com/{{site_config.instagram}}/" target="_blank" class="social-link">
                   <i class="fab fa-instagram"></i>
                 </a>
               </div>
@@ -787,7 +826,7 @@
       
       <div class="text-center py-3">
         <p class="mb-0 text-light">
-          &copy; 2025 SUBSECRETARIA DE TECNOLOGIA DA INFORMAÇÃO - PREFEITURA DE NOVA FRIBURGO
+          &copy;  {% now "Y" %} SUBSECRETARIA DE TECNOLOGIA DA INFORMAÇÃO E COMUNICAÇÃO - PREFEITURA MUNICIPAL DE NOVA FRIBURGO
         </p>
       </div>
     </div>

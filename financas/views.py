@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from .models import Servico, PaginasRelacionadas, AcessoRapido
+from .models import Servico, PaginasRelacionadas, AcessoRapido, SiteConfiguracao, LinkRodape
 import calendar
 from datetime import date, datetime
 from agenda_tributaria.models import AgendaTributaria
+
 # Create your views here.
 
 MESES_PT_BR = {
@@ -44,12 +45,14 @@ def index(request):
 
     # Obrigações do dia
     obrigacoes = AgendaTributaria.objects.filter(data=data_selecionada)
-
+    
     context = {
         'titulo': 'Fazenda',
+        
         'servicos': Servico.objects.filter(ativo=True),
 
         'ano': ano,
+        "ano_atual": datetime.now().year,
         'mes': mes,  
         'mes_nome': MESES_PT_BR[mes],
         'dias_mes': dias_mes,
@@ -63,6 +66,7 @@ def index(request):
         'ano_proximo': ano_proximo,
         "paginas_relacionadas": PaginasRelacionadas.objects.all(),
         'acessos_rapidos': AcessoRapido.objects.all(),
+        
     }
 
 

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+
 # Create your models here.
 class Servico(models.Model):
     class Meta:
@@ -221,6 +222,121 @@ class AcessoRapido(models.Model):
         max_length=50,
         help_text="Coloque aqui o nome da classe do ícone FontAwesome. Ex: 'fa-solid fa-book-open'"
     )
+
+    def __str__(self):
+        return self.titulo
+
+from django.db import models
+
+
+class SiteConfiguracao(models.Model):
+    nome_site = models.CharField(
+        max_length=150,
+        default="Prefeitura de Nova Friburgo"
+    )
+
+    telefone = models.CharField(
+        "Telefone",
+        max_length=30,
+        blank=True,
+        null=True
+    )
+
+    whatsapp = models.CharField(
+        "WhatsApp",
+        max_length=30,
+        blank=True,
+        null=True,
+        help_text="Ex: 5522999999999 (somente números)"
+    )
+
+    email = models.EmailField(
+        "E-mail institucional",
+        blank=True,
+        null=True
+    )
+
+    endereco = models.TextField(
+        "Endereço completo com horário de funcionamento",
+        blank=True,
+        null=True
+    )
+
+    link_instagram = models.URLField(
+        "Instagram",
+        blank=True,
+        null=True
+    )
+
+    link_facebook = models.URLField(
+        "Facebook",
+        blank=True,
+        null=True
+    )
+
+    link_youtube = models.URLField(
+        "YouTube",
+        blank=True,
+        null=True
+    )
+
+    link_site = models.URLField(
+        "Website oficial",
+        blank=True,
+        null=True
+    )
+
+    atualizado_em = models.DateTimeField(
+        auto_now=True
+    )
+
+    def save(self, *args, **kwargs):
+        self.pk = 1  # Força sempre ser o ID = 1
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return "Configurações do Site (Registro Único)"
+
+    class Meta:
+        verbose_name = "Configuração do Site"
+        verbose_name_plural = "Configuração do Site"
+
+
+class LinkRodape(models.Model):
+
+    
+    TIPO_CHOICES = (
+        ('PLATAFORMA', 'Plataforma'),
+        ('SISTEMA', 'Sistema'),
+    )
+
+    titulo = models.CharField(max_length=100)
+
+    url = models.URLField(
+        "Link de redirecionamento",
+        help_text="Ex: https://seusite.com.br/pagina"
+    )
+    tipo = models.CharField(
+        max_length=20,
+        choices=TIPO_CHOICES,
+        default='SISTEMA'
+    )
+    ordem = models.PositiveIntegerField(default=0)
+
+    abrir_em_nova_aba = models.BooleanField(
+        "Abrir em nova aba?",
+        default=False
+    )
+    
+
+    ativo = models.BooleanField(default=True)
+
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["ordem"]
+        verbose_name = "Link do rodapé"
+        verbose_name_plural = "Links do rodapé"
 
     def __str__(self):
         return self.titulo
