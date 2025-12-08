@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Servico, PaginasRelacionadas, AcessoRapido
+from .models import Servico, PaginasRelacionadas, AcessoRapido,SiteConfiguracao, LinkRodape
 
 
 @admin.register(Servico)
@@ -52,3 +52,21 @@ class NoticiaAdmin(admin.ModelAdmin):
 class AcessoRapidoAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'link', 'icone')
     search_fields = ('titulo',)
+
+
+
+@admin.register(SiteConfiguracao)
+class SiteConfiguracaoAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request):
+        # Não permite adicionar mais de um registro
+        if SiteConfiguracao.objects.exists():
+            return False
+        return True
+
+@admin.register(LinkRodape)
+class LinkRodapeAdmin(admin.ModelAdmin):
+    list_display = ("titulo", "url", "tipo", "ordem", "ativo", "abrir_em_nova_aba")
+    list_editable = ("ordem", "ativo", "abrir_em_nova_aba")
+    search_fields = ("titulo",)
+    list_filter = ("ativo", "abrir_em_nova_aba")
+    ordering = ("ordem",)
