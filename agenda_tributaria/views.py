@@ -1,5 +1,8 @@
 from datetime import datetime
 from django.http import JsonResponse
+
+
+from calendar import monthrange
 from .models import AgendaTributaria
 
 
@@ -57,3 +60,39 @@ def agenda_por_data(request):
     } for e in eventos]
 
     return JsonResponse(lista, safe=False)
+
+
+def api_calendario(request):
+    mes = int(request.GET.get("mes"))
+    ano = int(request.GET.get("ano"))
+    import datetime as dt
+    primeiro_dia = dt.date(ano, mes, 1)
+    dia_semana = primeiro_dia.weekday()  # seg=0
+    dia_semana = (dia_semana + 1) % 7    # dom=0
+
+    qtd_dias = monthrange(ano, mes)[1]
+
+    dias_mes = [0] * dia_semana + list(range(1, qtd_dias + 1))
+
+    meses = [
+        "Janeiro", "Fevereiro", "Março", "Abril",
+        "Maio", "Junho", "Julho", "Agosto",
+        "Setembro", "Outubro", "Novembro", "Dezembro"
+    ]
+
+    mes_anterior = mes - 1 if mes > 1 else 12
+    ano_anterior = ano if mes > 1 else ano - 1
+
+    mes_proximo = mes + 1 if mes < 12 else 1
+    ano_proximo = ano if mes < 12 else ano + 1
+
+    return JsonResponse({
+        "mes": mes,
+        "ano": ano,
+        "mes_nome": meses[mes - 1],
+        "dias_mes": dias_mes,
+        "mes_anterior": mes_anterior,
+        "ano_anterior": ano_anterior,
+        "mes_proximo": mes_proximo,
+        "ano_proximo": ano_proximo,
+    })
