@@ -214,6 +214,17 @@
       .btn-homologacao{
         flex-direction: column;
       }
+
+      .section-header {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center !important;
+        gap: 1rem;
+      }
+
+      .section-header .rounded-pill {
+        margin-top: 0;
+      }
     }
   </style>
 {% endblock %}
@@ -282,13 +293,13 @@
             <div class="notices">
                 <div class="notice mb-3 d-flex flex-column">
                 <p><strong>Atenção<br></strong> A data de vigência está prevista para <strong>1º de janeiro de 2026</strong>.</p>
-                <p>Todos os contribuintes deverão utilizar o Portal Nacional a partir da data prevista.</p>
-                <small>Empresas e profissionais devem verificar integração e adequação de seus sistemas de emissão.</small>
+                <p style="text-align: justify;">Todos os contribuintes deverão utilizar o Portal Nacional a partir da data prevista.</p>
+                <small style="text-align: justify;">Empresas e profissionais devem verificar integração e adequação de seus sistemas de emissão.</small>
                 </div>
                 <div class="notice d-flex flex-column">
                 <strong>Ambiente de homologação</strong> <br>
                 Sistema disponível para testes de integração com a NFS-e Nacional.
-                <small>Recomendamos que contadores e desenvolvedores realizem testes antes da data de corte.</small>
+                <small style="text-align: justify;">Recomendamos que contadores e desenvolvedores realizem testes antes da data de corte.</small>
                 <div class="row d-flex btn-homologacao">
                   <a class="col mt-3 mb-1 btn btn-primary ms-2 me-1" href="https://www.nfse.gov.br/swagger/contribuintesissqn/" target="_blank">
                   APIs para os Contribuintes (Swagger)
@@ -302,11 +313,11 @@
             </section>
             <section class="card" id="documentos" style="margin-top:16px;">
             <h3>Unificação nacional</h3>
-            <p style="margin-top:8px;color:#475569">O padrão nacional visa unificar leiautes, reduzir a complexidade e preparar o ambiente para a apuração da CBS (Contribuição sobre Bens e Serviços) e do IBS (Imposto sobre Bens e Serviços).</p>
+            <p style="margin-top:8px;color:#475569; text-align: justify;">O padrão nacional visa unificar leiautes, reduzir a complexidade e preparar o ambiente para a apuração da CBS (Contribuição sobre Bens e Serviços) e do IBS (Imposto sobre Bens e Serviços).</p>
             </section>
             <section class="card" id="documentos" style="margin-top:16px;">
             <h3>Redução da burocracia</h3>
-            <p style="margin-top:8px;color:#475569">Compartilhamento de dados por meio de documentos fiscais eletrônicos e adoção do ADN (Ambiente de Dados Nacional) por todos os municípios.</p>
+            <p style="margin-top:8px;color:#475569; text-align: justify;">Compartilhamento de dados por meio de documentos fiscais eletrônicos e adoção do ADN (Ambiente de Dados Nacional) por todos os municípios.</p>
             </section>
             
 

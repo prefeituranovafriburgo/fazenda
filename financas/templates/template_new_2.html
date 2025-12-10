@@ -120,14 +120,14 @@
     }
     
     .logo-nf {
-      height: 40px;
+      height: 45px;
     }
     
     .brand-text {
       color: white;
       font-family: var(--font-secondary);
       font-weight: 600;
-      font-size: 1.1rem;
+      font-size: 1.3rem;
       margin: 0;
     }
     
@@ -211,16 +211,33 @@
     }
     
     @media (max-width: 768px) {
-      .main-nav {
-        display: none;
+      .header-top .row {
+        flex-wrap: wrap;
+        align-items: center;
       }
-      
-      .mobile-menu-toggle {
-        display: block;
+
+      .header-top .col-md-6:first-child {
+        display: none !important;
       }
-      
-      .brand-text {
-        font-size: 0.9rem;
+
+      .header-top .col-md-6.text-end {
+        display: flex !important;
+        justify-content: flex-start !important;
+        width: 100%;
+        padding: 0.2rem 0;
+      }
+
+      .header-main .logo-section h1.brand-text {
+        font-size: 0.95rem;
+      }
+
+      .container.d-flex.align-items-center.justify-content-between {
+        margin-top: -18px;
+        padding-top: 0;
+      }
+
+      main.main-content {
+        margin-top: 0;
       }
     }
     
@@ -556,7 +573,22 @@
       .alert-icon {
         font-size: 1.25rem;
       }
-    }
+     }
+      /* Ajuste do botão hambúrguer */
+       .dropdown-modern .nav-link-modern {
+           width: 50px;              /* tamanho do “botão” */
+           height: 40px;
+           display: flex;
+           align-items: center;
+           justify-content: center;  /* centraliza o ícone */
+           padding: 0 !important;    /* remove padding que desloca o hover */
+           border-radius: 8px;
+           transition: background 0.2s ease;
+       }
+
+       .dropdown-modern .nav-link-modern:hover {
+           background: rgba(0, 0, 0, 0.08); /* hover centralizado */
+       }
   </style>
   
   <!-- Custom CSS Block -->
@@ -610,7 +642,7 @@
             <!-- Hamburguer -->
               <div class="dropdown dropdown-modern me-3">
                 <a class="nav-link-modern" href="#" role="button" data-bs-toggle="dropdown">
-                  <i class="fas fa-bars"></i>
+                  <i class="fas fa-bars" style="font-size: 32px;"></i>
                 </a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="https://fazenda.novafriburgo.rj.gov.br/">
@@ -684,7 +716,7 @@
                   <i class="fab fa-facebook-f"></i>
                 </a> -->
                 <a href="https://www.instagram.com/{{site_config.instagram}}/" target="_blank" class="social-link">
-                  <i class="fab fa-instagram"></i>
+                  <i class="fab fa-instagram fa-2x"></i>
                 </a>
               </div>
               
@@ -827,7 +859,7 @@
               </p>
               <div class="social-links">        
                 <a href="https://www.instagram.com/{{site_config.instagram}}/" target="_blank" class="social-link">
-                  <i class="fab fa-instagram"></i>
+                  <i class="fab fa-instagram fa-2x"></i>
                 </a>
               </div>
             </div>
