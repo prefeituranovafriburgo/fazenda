@@ -23,3 +23,4 @@ def pesquisa_ferramentas(request):
     }
 
     return render(request, 'ferramentas_site/busca_resultados.html', context)
+

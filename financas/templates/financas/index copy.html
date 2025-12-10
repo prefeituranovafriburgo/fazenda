@@ -899,14 +899,19 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="calendar-card">
       <div class="calendar-header">
 
-          <span class="cal-nav" id="btn-mes-anterior" style="cursor:pointer;">&lsaquo;</span>
+        <a href="?mes={{ mes_anterior }}&ano={{ ano_anterior }}" style="text-decoration: none;">
+          &lsaquo;
+        </a>
 
-        <strong  id="cal-titulo">{{ mes_nome }} de {{ ano }}</strong>
+        <strong>{{ mes_nome }} de {{ ano }}</strong>
 
-       <span class="cal-nav" id="btn-mes-proximo" style="cursor:pointer;">&rsaquo;</span>
+        <a href="?mes={{ mes_proximo }}&ano={{ ano_proximo }}" style="text-decoration: none;">
+          &rsaquo;
+        </a>
+
       </div>
 
-      <div class="calendar-grid" id="calendar-grid">
+      <div class="calendar-grid">
         <span>Dom</span>
         <span>Seg</span>
         <span>Ter</span>
@@ -1015,67 +1020,6 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 
     elemento.classList.add("active")
-  }
-
-  
-  async function carregarMes(mes, ano) {
-      try {
-          const response = await fetch(`/agenda/api-calendario/?mes=${mes}&ano=${ano}`)
-          const data = await response.json()
-
-          const grid = document.getElementById("calendar-grid")
-          const titulo = document.getElementById("cal-titulo")
-
-          // Atualiza título do calendário
-          titulo.innerHTML = `${data.mes_nome} de ${data.ano}`
-
-          // Limpa os dias
-          grid.innerHTML = `
-              <span>Dom</span>
-              <span>Seg</span>
-              <span>Ter</span>
-              <span>Qua</span>
-              <span>Qui</span>
-              <span>Sex</span>
-              <span>Sab</span>
-          `
-
-          // Renderiza os dias
-          data.dias_mes.forEach(dia => {
-              if (dia === 0) {
-                  grid.innerHTML += "<span></span>"
-              } else {
-                  grid.innerHTML += `
-                      <span class="dia"
-                          style="cursor:pointer;"
-                          onclick="carregarAgenda('${data.ano}-${String(data.mes).padStart(2,'0')}-${String(dia).padStart(2,'0')}'); marcarDia(this)"
-                      >${dia}</span>
-                  `
-              }
-          })
-
-          // Atualiza navegação
-          document.getElementById("btn-mes-anterior").onclick = () => {
-              carregarMes(data.mes_anterior, data.ano_anterior)
-          }
-
-          document.getElementById("btn-mes-proximo").onclick = () => {
-              carregarMes(data.mes_proximo, data.ano_proximo)
-          }
-
-      } catch (error) {
-          console.error("Erro ao carregar calendário:", error)
-      }
-  }
-
-
-
-  // INICIALIZA CLIQUES
-  document.getElementById("btn-mes-anterior").onclick = () => {
-      carregarMes({{ mes_anterior }}, {{ ano_anterior }})
-  }
-  document.getElementById("btn-mes-proximo").onclick = () => {
-      carregarMes({{ mes_proximo }}, {{ ano_proximo }})
   }
 </script>
 
