@@ -441,135 +441,6 @@
   <section class="section-content" data-aos="fade-up" style="padding-bottom: 100px;">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title">Principais Serviços 2</h2>
-      
-    </div>
-
-    <div class="ps-grid">
-
-      <a href="#" class="ps-card">
-        <div class="ps-top">
-          <span class="ps-icon fas fa-user"></span>
-          <h3 class="ps-card-title">Serviço 1</h3>
-        </div>
-        <div class="ps-meta">
-          <span>Descrição do serviço 1</span>
-        </div>
-      </a>
-
-      <a href="#" class="ps-card">
-        <div class="ps-top">
-          <span class="ps-icon fas fa-file"></span>
-          <h3 class="ps-card-title">Serviço 2</h3>
-        </div>
-        <div class="ps-meta">
-          <span>Descrição do serviço 2</span>
-        </div>
-      </a>
-
-      <a href="#" class="ps-card">
-        <div class="ps-top">
-          <span class="ps-icon fas fa-building"></span>
-          <h3 class="ps-card-title">Serviço 3</h3>
-        </div>
-        <div class="ps-meta">
-          <span>Descrição do serviço 3</span>
-        </div>
-      </a>
-
-    </div>
-  </div>
-
-
-<style>
-/* GRID */
-.ps-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 14px;
-}
-
-/* CARD (estilo do btn-chamada) */
-.ps-card {
-  display: flex;
-  flex-direction: column;     /* topo (ícone+titulo) em cima, descrição embaixo */
-  justify-content: center;
-  padding: 7px 15px 10px 15px;
-  margin: 7px;
-  height: 100px;              /* todos do mesmo tamanho no desktop */
-  border-radius: 12px;
-  border: 1px solid rgb(0,127,211);
-  background-color: rgb(0,82,138);
-  color: #fff;
-  text-decoration: none;
-  transition: all .35s ease;
-  overflow: hidden;
-}
-
-/* HOVER */
-.ps-card:hover {
-  background-color: rgb(0,145,70);
-  transform: translateY(-3px);
-}
-
-/* TOPO: ÍCONE + TÍTULO LADO A LADO */
-.ps-top {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* ÍCONE (menor) */
-.ps-icon {
-  font-size: 18px;   /* DIMINUIDO */
-  line-height: 1;
-  display: inline-block;
-}
-
-/* TÍTULO (alinhado ao lado do ícone) */
-.ps-card-title {
-  margin: 0;
-  font-size: 15px;
-  font-weight: 700;
-  color: #fff;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* DESCRIÇÃO ABAIXO DO TÍTULO */
-.ps-meta {
-  margin-top: 6px;
-}
-.ps-meta span {
-  display: block;
-  font-size: 13px;
-  color: #e6f1fb;
-  opacity: 0.95;
-  line-height: 1.1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* RESPONSIVO: libera altura e empilha se necessário */
-@media (max-width: 520px) {
-  .ps-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-  .ps-card {
-    height: auto;
-    padding: 12px;
-  }
-  .ps-card-title, .ps-meta span {
-    white-space: normal;
-  }
-}
-</style>
-
-  <section class="section-content" data-aos="fade-up" style="padding-bottom: 100px;">
-  <div class="container">
-    <div class="section-header">
       <h2 class="section-title">Últimas Noticias</h2>
       
     </div>
@@ -607,6 +478,8 @@
 
       <button class="carousel-btn next" onclick="nextSlide()">❯</button>
     </div>
+</section>
+
     <style>
   /* CARROSSEL */
     .news-carousel {
