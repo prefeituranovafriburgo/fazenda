@@ -77,3 +77,9 @@ def nfse(request):
 
     }
     return render(request, 'financas/nfse.html', context)
+
+def dte(request):
+    context = {
+
+    }
+    return render(request, 'financas/dte.html', context)
