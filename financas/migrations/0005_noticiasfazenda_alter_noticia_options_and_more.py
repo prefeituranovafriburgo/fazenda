@@ -39,59 +39,7 @@ class Migration(migrations.Migration):
         migrations.AlterModelOptions(
             name='noticia',
             options={'ordering': ['id', 'titulo'], 'verbose_name': 'Notícia_Legado', 'verbose_name_plural': 'Notícias_Legado'},
-        ),
-        migrations.RemoveField(
-            model_name='noticia',
-            name='ativa',
-        ),
-        migrations.RemoveField(
-            model_name='noticia',
-            name='autor',
-        ),
-        migrations.RemoveField(
-            model_name='noticia',
-            name='banner_carrossel',
-        ),
-        migrations.RemoveField(
-            model_name='noticia',
-            name='banner_pequeno',
-        ),
-        migrations.RemoveField(
-            model_name='noticia',
-            name='destaque',
-        ),
-        migrations.RemoveField(
-            model_name='noticia',
-            name='dt_atualizacao',
-        ),
-        migrations.RemoveField(
-            model_name='noticia',
-            name='dt_inclusao',
-        ),
-        migrations.RemoveField(
-            model_name='noticia',
-            name='links_uteis',
-        ),
-        migrations.RemoveField(
-            model_name='noticia',
-            name='meta_description',
-        ),
-        migrations.RemoveField(
-            model_name='noticia',
-            name='meta_keywords',
-        ),
-        migrations.RemoveField(
-            model_name='noticia',
-            name='resumo',
-        ),
-        migrations.RemoveField(
-            model_name='noticia',
-            name='slug',
-        ),
-        migrations.RemoveField(
-            model_name='noticia',
-            name='visualizacoes',
-        ),
+        ),        
         migrations.AlterField(
             model_name='noticia',
             name='corpo_da_noticia',
