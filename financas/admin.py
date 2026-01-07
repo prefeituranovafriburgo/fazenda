@@ -25,7 +25,7 @@ class NoticiaAdmin(admin.ModelAdmin):
     
     fieldsets = (
         ('Informações Principais', {
-            'fields': ('titulo', 'slug', 'resumo', 'autor')
+            'fields': ('titulo', 'resumo', 'autor')
         }),
         ('Conteúdo', {
             'fields': ('corpo_da_noticia', 'links_uteis')
