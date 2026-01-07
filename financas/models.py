@@ -31,18 +31,18 @@ class Servico(models.Model):
         return '%s' % (self.titulo)
 
 
-# class Noticia(models.Model):
-#     class Meta:
-#         verbose_name = 'Notícia'
-#         verbose_name_plural = "Notícias"
-#         ordering = ['id', 'titulo']
+class Noticia(models.Model):
+    class Meta:
+        verbose_name = 'Notícia_Legado'
+        verbose_name_plural = "Notícias_Legado"
+        ordering = ['id', 'titulo']
 
          
-#     titulo = models.CharField(max_length=150)
-#     banner_pequeno = models.ImageField()    
-#     banner_carroussel = models.ImageField()    
-#     corpo_da_noticia = models.TextField()
-#     links_uteis = models.TextField()
+    titulo = models.CharField(max_length=150)
+    # banner_pequeno = models.ImageField()    
+    # banner_carroussel = models.ImageField()    
+    corpo_da_noticia = models.TextField()
+    
 
 from django.db import models
 from django.utils import timezone
@@ -50,7 +50,7 @@ from django.utils.text import slugify
 from django.urls import reverse
 
 
-class Noticia(models.Model):
+class NoticiasFazenda(models.Model):
     class Meta:
         verbose_name = 'Notícia'
         verbose_name_plural = "Notícias"
