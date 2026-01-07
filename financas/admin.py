@@ -12,7 +12,7 @@ class ServicoAdmin(admin.ModelAdmin):
 class PaginasRelacionadasAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'link')
 from django.contrib import admin
-from .models import Noticia
+from .models import NoticiasFazenda as Noticia
 
 @admin.register(Noticia)
 class NoticiaAdmin(admin.ModelAdmin):
