@@ -148,6 +148,12 @@ class NoticiasFazenda(models.Model):
         verbose_name="Destaque",
         help_text="Marque para exibir esta notícia no carrossel principal"
     )
+    
+    ordem_carrossel = models.PositiveIntegerField(
+        default=0,
+        verbose_name="Ordem no Carrossel",
+        help_text="Ordem de exibição no carrossel principal (0 = não exibe)"
+    )
 
     # SEO
     meta_description = models.CharField(
