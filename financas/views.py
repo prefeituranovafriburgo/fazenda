@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from .models import Servico, PaginasRelacionadas, AcessoRapido, SiteConfiguracao, LinkRodape
+from django.shortcuts import render, get_object_or_404
+from .models import Servico, PaginasRelacionadas, AcessoRapido, SiteConfiguracao, LinkRodape, NoticiasFazenda
 import calendar
 from datetime import date, datetime
 from agenda_tributaria.models import AgendaTributaria
@@ -50,6 +50,8 @@ def index(request):
         'titulo': 'Fazenda',
         
         'servicos': Servico.objects.filter(ativo=True),
+        'noticias': NoticiasFazenda.objects.filter(ativa=True).order_by('-dt_inclusao'),
+        'noticias_destaque': NoticiasFazenda.objects.filter(ativa=True, destaque=True).order_by('ordem_carrossel'),
 
         'ano': ano,
         "ano_atual": datetime.now().year,
@@ -83,3 +85,27 @@ def dte(request):
 
     }
     return render(request, 'financas/dte.html', context)
+
+
+def noticia_detalhe(request, slug):
+    """Exibe o detalhe de uma notícia"""
+    noticia = get_object_or_404(NoticiasFazenda, slug=slug, ativa=True)
+    
+    # Incrementa visualizações
+    noticia.incrementar_visualizacoes()
+    
+    context = {
+        'noticia': noticia,
+        'noticias_relacionadas': NoticiasFazenda.objects.filter(ativa=True).exclude(id=noticia.id)[:3],
+    }
+    return render(request, 'financas/noticia_detalhe.html', context)
+
+
+def noticias_lista(request):
+    """Lista todas as notícias ativas"""
+    noticias = NoticiasFazenda.objects.filter(ativa=True).order_by('-dt_inclusao')
+    
+    context = {
+        'noticias': noticias,
+    }
+    return render(request, 'financas/noticias_lista.html', context)
