@@ -18,8 +18,7 @@ from .models import Noticia
 class NoticiaAdmin(admin.ModelAdmin):
     list_display = ['titulo', 'dt_inclusao', 'ativa', 'visualizacoes']
     list_filter = ['ativa']
-    search_fields = ['titulo', 'resumo', 'corpo_da_noticia', 'dt_inclusao']
-    prepopulated_fields = {'slug': ('titulo',)}
+    search_fields = ['titulo', 'resumo', 'corpo_da_noticia', 'dt_inclusao']    
     date_hierarchy = 'dt_inclusao'
     readonly_fields = ['visualizacoes', 'dt_inclusao', 'dt_atualizacao']
     
