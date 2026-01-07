@@ -817,7 +817,21 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="news-section">      
       <div class="news-grid">
 
-      <div class="news-card">
+      {% for noticia in noticias %}
+      <a href="{% url 'noticia_detalhe' noticia.slug %}" class="news-card" style="text-decoration: none; color: inherit;">
+        <div class="news-image">
+          <img src="{{ noticia.banner_pequeno.url }}" class="m-auto img-fluid" alt="{{ noticia.titulo }}">
+        </div>
+        <div class="news-content">
+          <h3 class="news-title">{{ noticia.titulo }}</h3>
+          <span class="news-date">{{ noticia.dt_inclusao|date:"d \\d\\e b Y" }}</span>
+          <p class="news-desc">{{ noticia.resumo }}</p>
+          <span class="news-btn">Leia mais</span>
+        </div>
+      </a>
+      {% endfor %}
+
+      <a href="./nfs-e/" class="news-card" style="text-decoration: none; color: inherit;">
         <div class="news-image">
           <img src="/static/images/nfselogo.png" class="m-auto img-fluid" alt="">
         </div>
@@ -825,20 +839,9 @@ document.addEventListener('DOMContentLoaded', function () {
           <h3 class="news-title">Migração para a NFS-e Nacional</h3>
           <span class="news-date">12 Jun 2025</span>
           <p class="news-desc">Com a Reforma Tributária, a emissão de nota fiscal eletrônica passará a ocorrer por meio do emissor nacional. Prepare-se para a transição.</p>
-          <a href="./nfs-e/" class="news-btn">Leia mais</a>
+          <span class="news-btn">Leia mais</span>
         </div>
-      </div>
-<!-- 
-      <div class="news-card">
-        <div class="news-image"></div>
-        <div class="news-content">
-          <h3 class="news-title">Novas regras para emissão de alvarás entram em vigor</h3>
-          <span class="news-date">09 Jun 2025</span>
-          <p class="news-desc">Mudanças prometem reduzir burocracia e acelerar a liberação de licenças.</p>
-          <a href="#" class="news-btn">Leia mais</a>
-        </div>
-      </div> -->
-
+      </a>
 
     </div>
     </div>
