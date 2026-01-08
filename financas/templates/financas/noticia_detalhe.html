@@ -189,19 +189,18 @@
     }
 
     /* Estilos para noticia-detalhe */
-    .noticia-header {
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      margin-bottom: 2rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    .card {
+      background: #ffffff;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #eef6ff;
     }
 
     .noticia-titulo {
       font-size: 2rem;
       font-weight: 700;
-      color: var(--dark-color);
-      margin-bottom: 1rem;
+      color: #0b4f8a;
+      margin: 0 0 1rem 0;
       line-height: 1.4;
     }
 
@@ -221,106 +220,86 @@
     }
 
     .noticia-meta-item strong {
-      color: var(--primary-color);
+      color: #0b4f8a;
     }
 
-    .noticia-conteudo {
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      margin-bottom: 2rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      line-height: 1.8;
+    .noticia-corpo {
       color: #334155;
-      font-size: 1.05rem;
+      line-height: 1.8;
+      font-size: 1rem;
     }
 
-    .noticia-conteudo p {
+    .noticia-corpo p {
       margin-bottom: 1rem;
       text-align: justify;
     }
 
-    .noticia-conteudo h2 {
-      color: var(--primary-color);
+    .noticia-corpo h2 {
+      color: #0b4f8a;
       margin-top: 2rem;
       margin-bottom: 1rem;
       font-size: 1.5rem;
     }
 
-    .noticia-conteudo h3 {
+    .noticia-corpo h3 {
       color: #0b4f8a;
       margin-top: 1.5rem;
       margin-bottom: 0.75rem;
       font-size: 1.25rem;
     }
 
-    .noticia-conteudo ul,
-    .noticia-conteudo ol {
+    .noticia-corpo ul,
+    .noticia-corpo ol {
       margin-bottom: 1rem;
       margin-left: 2rem;
     }
 
-    .noticia-conteudo li {
+    .noticia-corpo li {
       margin-bottom: 0.5rem;
     }
 
+    .sidebar-section h3 {
+      font-size: 14px;
+      color: #0b4f8a;
+      margin-bottom: 8px;
+    }
+
     .noticias-relacionadas {
-      margin-top: 3rem;
-      padding-top: 2rem;
-      border-top: 2px solid #eef6ff;
+      margin-top: 2rem;
     }
 
-    .noticias-relacionadas-titulo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--dark-color);
-      margin-bottom: 1.5rem;
-    }
-
-    .noticia-card-pequena {
-      background: white;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      transition: all var(--transition-normal);
+    .noticias-relacionadas h2 {
+      font-size: 1.25rem;
+      color: #0b4f8a;
       margin-bottom: 1rem;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
     }
 
-    .noticia-card-pequena:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    .noticia-item-relacionada {
+      padding: 12px;
+      border-radius: 6px;
+      background: #f7fbff;
+      border: 1px solid #e6f0ff;
+      margin-bottom: 10px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s ease;
     }
 
-    .noticia-card-pequena-titulo {
+    .noticia-item-relacionada:hover {
+      background: #e6f0ff;
+      transform: translateX(4px);
+    }
+
+    .noticia-item-relacionada-titulo {
       font-weight: 600;
-      color: var(--primary-color);
+      color: #0b4f8a;
       margin-bottom: 0.5rem;
       line-height: 1.4;
     }
 
-    .noticia-card-pequena-data {
+    .noticia-item-relacionada-data {
       font-size: 0.85rem;
       color: #6b7c90;
-      margin-top: auto;
-    }
-
-    .noticia-card-pequena-conteudo {
-      padding: 1rem;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .noticia-card-pequena a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .noticia-card-pequena:hover .noticia-card-pequena-titulo {
-      color: #0b4f8a;
     }
 
     @media (max-width: 768px) {
@@ -397,13 +376,13 @@
    
     <div class="grid">
       <main>
-        <article class="noticia-header">
+        <article class="card">
           <h1 class="noticia-titulo">{{ noticia.titulo }}</h1>
           
           <div class="noticia-meta">
             <div class="noticia-meta-item">
               <strong>Data:</strong>
-              <span>{{ noticia.dt_inclusao|date:"d \d\e F \d\e Y" }}</span>
+              <span>{{ noticia.dt_inclusao|date:"d \\d\\e F \\d\\e Y" }}</span>
             </div>
             {% if noticia.visualizacoes %}
             <div class="noticia-meta-item">
@@ -412,54 +391,42 @@
             </div>
             {% endif %}
           </div>
-        </article>
 
-        <div class="noticia-conteudo">
-          {{ noticia.conteudo|safe }}
-        </div>
+          <div class="noticia-corpo">
+            {{ noticia.corpo_da_noticia|safe }}
+          </div>
+        </article>
 
         {% if noticias_relacionadas %}
         <section class="noticias-relacionadas">
-          <h2 class="noticias-relacionadas-titulo">Notícias Relacionadas</h2>
+          <h2>Notícias Relacionadas</h2>
           
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
-            {% for noticia_rel in noticias_relacionadas %}
-            <div class="noticia-card-pequena">
-              <div class="noticia-card-pequena-conteudo">
-                <a href="{% url 'financas:noticia_detalhe' noticia_rel.slug %}">
-                  <h3 class="noticia-card-pequena-titulo">{{ noticia_rel.titulo }}</h3>
-                  <p style="font-size: 0.95rem; color: #475569; margin-bottom: 0.5rem;">
-                    {% if noticia_rel.corpo_da_noticia %}
-                      {{ noticia_rel.corpo_da_noticia|truncatewords:20|safe }}
-                    {% endif %}
-                  </p>
-                </a>
-                <div class="noticia-card-pequena-data">
-                  {{ noticia_rel.dt_inclusao|date:"d \d\e M" }}
-                </div>
-              </div>
-            </div>
-            {% endfor %}
-          </div>
+          {% for noticia_rel in noticias_relacionadas %}
+          <a href="{% url 'financas:noticia_detalhe' noticia_rel.slug %}" class="noticia-item-relacionada">
+            <div class="noticia-item-relacionada-titulo">{{ noticia_rel.titulo }}</div>
+            {% if noticia_rel.resumo %}
+            <p style="font-size: 0.9rem; color: #475569; margin: 0.5rem 0 0 0;">{{ noticia_rel.resumo|truncatewords:15 }}</p>
+            {% endif %}
+            <div class="noticia-item-relacionada-data">{{ noticia_rel.dt_inclusao|date:"d \\d\\e M" }}</div>
+          </a>
+          {% endfor %}
         </section>
         {% endif %}
       </main>
 
       <aside>
-        <div class="card" style="background:#ffffff;padding:16px;border-radius:8px;border:1px solid #eef6ff;position:sticky;top:28px">
-          <h3 style="font-size:14px;color:#0b4f8a;margin-bottom:8px">Sobre esta notícia</h3>
-          <div style="font-size: 0.9rem; color: #6b7c90; line-height: 1.6;">
-            <p>
-              <strong>Publicada em:</strong><br>
-              {{ noticia.dt_inclusao|date:"d/m/Y \à\s H:i" }}
-            </p>
-            {% if noticia.visualizacoes %}
-            <p style="margin-top: 1rem;">
-              <strong>Visualizações:</strong><br>
-              {{ noticia.visualizacoes }}
-            </p>
-            {% endif %}
-          </div>
+        <div class="card sidebar-section">
+          <h3>Sobre esta notícia</h3>
+          <p style="font-size: 0.9rem; color: #6b7c90; line-height: 1.6; margin: 0;">
+            <strong>Publicada em:</strong><br>
+            {{ noticia.dt_inclusao|date:"d/m/Y" }}
+          </p>
+          {% if noticia.visualizacoes %}
+          <p style="font-size: 0.9rem; color: #6b7c90; line-height: 1.6; margin: 1rem 0 0 0;">
+            <strong>Visualizações:</strong><br>
+            {{ noticia.visualizacoes }}
+          </p>
+          {% endif %}
         </div>
       </aside>
     </div>
