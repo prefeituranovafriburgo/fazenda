@@ -7,6 +7,8 @@ from . import views
 app_name='financas'
 urlpatterns = [
     path('', views.index, name='home'),    
+    path('noticia/<slug:slug>/', views.noticia_detalhe, name='noticia_detalhe'),
+    path('noticias/', views.noticias_lista, name='noticias_lista'),
     
     path('nfs-e/', views.nfse, name='nfse'),     
     path('dte/', views.dte, name='dte'),     
