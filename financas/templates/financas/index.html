@@ -818,7 +818,7 @@ document.addEventListener('DOMContentLoaded', function () {
       <div class="news-grid">
 
       {% for noticia in noticias %}
-      <a href="{% url 'noticia_detalhe' noticia.slug %}" class="news-card" style="text-decoration: none; color: inherit;">
+      <a href="{% url 'financas:noticia_detalhe' noticia.slug %}" class="news-card" style="text-decoration: none; color: inherit;">
         <div class="news-image">
           <img src="{{ noticia.banner_pequeno.url }}" class="m-auto img-fluid" alt="{{ noticia.titulo }}">
         </div>
