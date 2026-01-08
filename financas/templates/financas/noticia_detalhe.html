@@ -429,8 +429,8 @@
                 <a href="{% url 'financas:noticia_detalhe' noticia_rel.slug %}">
                   <h3 class="noticia-card-pequena-titulo">{{ noticia_rel.titulo }}</h3>
                   <p style="font-size: 0.95rem; color: #475569; margin-bottom: 0.5rem;">
-                    {% if noticia_rel.conteudo %}
-                      {{ noticia_rel.conteudo|truncatewords:20|safe }}
+                    {% if noticia_rel.corpo_da_noticia %}
+                      {{ noticia_rel.corpo_da_noticia|truncatewords:20|safe }}
                     {% endif %}
                   </p>
                 </a>
