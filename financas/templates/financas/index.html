@@ -804,6 +804,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const slides = document.querySelectorAll('.carousel-slide');
 
     let currentIndex = 0;
+    let autoplayInterval;
 
     // Garante que existem slides
     if (!track || slides.length === 0) return;
@@ -821,6 +822,25 @@ document.addEventListener('DOMContentLoaded', function () {
         currentIndex = (currentIndex - 1 + slides.length) % slides.length;
         updateSlide();
     }
+
+    // Autoplay - passa automaticamente a cada 5 segundos
+    function startAutoplay() {
+        autoplayInterval = setInterval(() => {
+            window.nextSlide();
+        }, 5000);
+    }
+
+    function stopAutoplay() {
+        clearInterval(autoplayInterval);
+    }
+
+    // Pausar ao passar o mouse, retomar ao sair
+    const carousel = document.querySelector('.news-carousel');
+    carousel.addEventListener('mouseenter', stopAutoplay);
+    carousel.addEventListener('mouseleave', startAutoplay);
+
+    // Iniciar autoplay
+    startAutoplay();
 });
 </script>
 
