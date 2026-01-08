@@ -450,7 +450,17 @@
 
       <div class="carousel-track">
 
-        <a href="./nfs-e/" class="carousel-slide active">
+        {% for noticia in noticias_destaque %}
+        <a href="{% url 'financas:noticia_detalhe' noticia.slug %}" class="carousel-slide{% if forloop.first %} active{% endif %}">
+          <img src="{{ noticia.banner_carrossel.url }}" alt="{{ noticia.titulo }}">
+          <div class="carousel-caption">
+            <h3>{{ noticia.titulo }}</h3>
+            <p>{{ noticia.resumo }}</p>
+          </div>
+        </a>
+        {% endfor %}
+
+        <a href="./nfs-e/" class="carousel-slide">
           <img src="/static/images/nfselogo.png">
           <div class="carousel-caption">
             <h3>Migração para a NFS-e Nacional</h3>
