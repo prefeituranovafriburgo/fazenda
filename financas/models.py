@@ -184,7 +184,7 @@ class NoticiasFazenda(models.Model):
             # Garante unicidade do slug
             original_slug = self.slug
             counter = 1
-            while Noticia.objects.filter(slug=self.slug).exists():
+            while NoticiasFazenda.objects.filter(slug=self.slug).exists():
                 self.slug = f"{original_slug}-{counter}"
                 counter += 1
         
