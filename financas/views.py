@@ -95,9 +95,27 @@ def noticia_detalhe(request, slug):
     # Incrementa visualizações
     noticia.incrementar_visualizacoes()
     
+    # Obter todas as notícias ativas ordenadas por data (mais recentes primeiro)
+    todas_noticias = NoticiasFazenda.objects.filter(ativa=True).order_by('-dt_inclusao')
+    noticias_list = list(todas_noticias)
+    
+    # Encontrar índice da notícia atual
+    indice_atual = None
+    for i, n in enumerate(noticias_list):
+        if n.id == noticia.id:
+            indice_atual = i
+            break
+    
+    # Próxima notícia (índice anterior, pois está ordenada por data DESC)
+    proxima_noticia = noticias_list[indice_atual - 1] if indice_atual is not None and indice_atual > 0 else None
+    
+    # Notícia anterior (índice posterior)
+    noticia_anterior = noticias_list[indice_atual + 1] if indice_atual is not None and indice_atual < len(noticias_list) - 1 else None
+    
     context = {
         'noticia': noticia,
-        'noticias_relacionadas': NoticiasFazenda.objects.filter(ativa=True).exclude(id=noticia.id)[:3],
+        'proxima_noticia': proxima_noticia,
+        'noticia_anterior': noticia_anterior,
     }
     return render(request, 'financas/noticia_detalhe.html', context)
 

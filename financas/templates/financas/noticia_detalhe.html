@@ -367,6 +367,65 @@
         margin-top:20px
       }
 
+      .noticias-relacionadas {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .noticias-relacionadas h2 {
+        grid-column: 1 / -1;
+      }
+
+      .noticia-item-relacionada {
+        display: flex;
+        flex-direction: column;
+        padding: 12px;
+        border-radius: 6px;
+        background: #f7fbff;
+        border: 1px solid #e6f0ff;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.2s ease;
+        height: 100%;
+      }
+
+      .noticia-item-relacionada:hover {
+        background: #e6f0ff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(11, 79, 138, 0.1);
+      }
+
+      .noticias-navegacao {
+        margin-top: 1.5rem;
+      }
+
+      .noticia-nav-btn {
+        display: block;
+        padding: 8px 10px;
+        border-radius: 6px;
+        background: white;
+        border: 1px solid #ddd;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s ease;
+      }
+
+      .noticia-nav-btn:hover {
+        background: #f5f5f5;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .noticia-nav-titulo {
+        font-weight: 600;
+        color: #0b4f8a;
+        margin-top: 3px;
+        line-height: 1.3;
+        font-size: 0.85rem;
+      }
+
       @media (max-width:900px){
         .grid{grid-template-columns:1fr; padding-bottom:12px}
         aside .card{position:relative;top:0}
@@ -397,21 +456,24 @@
           </div>
         </article>
 
-        {% if noticias_relacionadas %}
-        <section class="noticias-relacionadas">
-          <h2>Notícias Relacionadas</h2>
-          
-          {% for noticia_rel in noticias_relacionadas %}
-          <a href="{% url 'financas:noticia_detalhe' noticia_rel.slug %}" class="noticia-item-relacionada">
-            <div class="noticia-item-relacionada-titulo">{{ noticia_rel.titulo }}</div>
-            {% if noticia_rel.resumo %}
-            <p style="font-size: 0.9rem; color: #475569; margin: 0.5rem 0 0 0;">{{ noticia_rel.resumo|truncatewords:15 }}</p>
+        <section class="noticias-navegacao">
+          <h3 style="font-size: 1.1rem; color: #0b4f8a; margin-bottom: 0.75rem; font-weight: 600;">Outras Notícias</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+            {% if noticia_anterior %}
+            <a href="{% url 'financas:noticia_detalhe' noticia_anterior.slug %}" class="noticia-nav-btn noticia-anterior">
+              <div style="font-size: 0.75rem; color: #6b7c90;">← Anterior</div>
+              <div class="noticia-nav-titulo">{{ noticia_anterior.titulo }}</div>
+            </a>
             {% endif %}
-            <div class="noticia-item-relacionada-data">{{ noticia_rel.dt_inclusao|date:"d \\d\\e M" }}</div>
-          </a>
-          {% endfor %}
+            
+            {% if proxima_noticia %}
+            <a href="{% url 'financas:noticia_detalhe' proxima_noticia.slug %}" class="noticia-nav-btn noticia-proxima">
+              <div style="font-size: 0.75rem; color: #6b7c90;">Próxima →</div>
+              <div class="noticia-nav-titulo">{{ proxima_noticia.titulo }}</div>
+            </a>
+            {% endif %}
+          </div>
         </section>
-        {% endif %}
       </main>
 
       <aside>
