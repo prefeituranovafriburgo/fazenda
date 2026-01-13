@@ -81,7 +81,7 @@ class NoticiasFazenda(models.Model):
     banner_pequeno = models.ImageField(
         upload_to='noticias/thumbnails/%Y/%m/',
         verbose_name="Banner Pequeno (Card)",
-        help_text="Imagem para cards de notícias (recomendado: 400x300px)"
+        help_text="Imagem para cards de notícias (recomendado: 400x165px)"
     )
     
     banner_carrossel = models.ImageField(

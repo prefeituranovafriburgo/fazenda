@@ -18,10 +18,10 @@ from .models import NoticiasFazenda as Noticia
 class NoticiaAdmin(admin.ModelAdmin):
     list_display = ['titulo', 'dt_inclusao', 'ativa', 'visualizacoes']
     list_filter = ['ativa']
-    search_fields = ['titulo', 'resumo', 'corpo_da_noticia', 'dt_inclusao']    
+    search_fields = ['titulo', 'resumo', 'corpo_da_noticia', 'dt_inclusao']
     readonly_fields = ['visualizacoes', 'dt_inclusao', 'dt_atualizacao']
-    
-    
+
+
     fieldsets = (
         ('Informações Principais', {
             'fields': ('titulo', 'resumo', 'autor')
