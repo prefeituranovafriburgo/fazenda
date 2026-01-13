@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Servico, PaginasRelacionadas, AcessoRapido,SiteConfiguracao, LinkRodape
+from .models import Servico, PaginasRelacionadas, AcessoRapido,SiteConfiguracao, LinkRodape, Classe_Formulario, Formularios
 
 
 @admin.register(Servico)
@@ -11,6 +11,9 @@ class ServicoAdmin(admin.ModelAdmin):
 @admin.register(PaginasRelacionadas)
 class PaginasRelacionadasAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'link')
+    
+
+
 from django.contrib import admin
 from .models import NoticiasFazenda as Noticia
 
@@ -68,3 +71,15 @@ class LinkRodapeAdmin(admin.ModelAdmin):
     search_fields = ("titulo",)
     list_filter = ("ativo", "abrir_em_nova_aba")
     ordering = ("ordem",)
+
+@admin.register(Classe_Formulario)
+class ClasseFormularioAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'div_id', 'dt_inclusao')
+    search_fields = ('nome', 'div_id')
+    list_filter = ('dt_inclusao',)
+
+@admin.register(Formularios)
+class FormulariosAdmin(admin.ModelAdmin):
+    list_display = ('titulo', 'classe', 'dt_inclusao')
+    search_fields = ('titulo', 'classe__nome')
+    list_filter = ('dt_inclusao',)

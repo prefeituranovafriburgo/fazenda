@@ -12,6 +12,7 @@ urlpatterns = [
     
     path('nfs-e/', views.nfse, name='nfse'),     
     path('dte/', views.dte, name='dte'),     
+    path('formularios/', views.formularios, name='formularios'),
 ]
 
 

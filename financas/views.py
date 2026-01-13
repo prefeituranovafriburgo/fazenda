@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Servico, PaginasRelacionadas, AcessoRapido, SiteConfiguracao, LinkRodape, NoticiasFazenda
+from .models import Servico, PaginasRelacionadas, AcessoRapido, SiteConfiguracao, LinkRodape, NoticiasFazenda, Classe_Formulario, Formularios
 import calendar
 from datetime import date, datetime
 from agenda_tributaria.models import AgendaTributaria
+from django.apps import apps
 
 # Create your views here.
 
@@ -109,3 +110,11 @@ def noticias_lista(request):
         'noticias': noticias,
     }
     return render(request, 'financas/noticias_lista.html', context)
+
+def formularios(request):
+    classes = Classe_Formulario.objects.all()
+    
+    context = {
+        'classes': classes,
+    }
+    return render(request, 'financas/formularios.html', context)

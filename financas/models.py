@@ -220,6 +220,10 @@ class PaginasRelacionadas(models.Model):
     def __str__(self):
         return self.titulo
 
+    class Meta:
+        verbose_name = "Página Relacionada"
+        verbose_name_plural = "Páginas Relacionadas"
+
 
 class AcessoRapido(models.Model):
     titulo = models.CharField(max_length=100)
@@ -346,3 +350,33 @@ class LinkRodape(models.Model):
 
     def __str__(self):
         return self.titulo
+
+
+#formularios e declarações
+class Classe_Formulario(models.Model):
+    nome = models.CharField(max_length=100)
+    div_id = models.CharField(max_length=10)
+    dt_inclusao = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.nome
+
+    def get_formularios(self):
+        return Formularios.objects.filter(classe=self)
+
+    class Meta:
+        verbose_name = "Classe Formulário"
+        verbose_name_plural = "Classes Formulários"
+
+class Formularios(models.Model):
+    classe = models.ForeignKey(Classe_Formulario, on_delete=models.CASCADE)
+    titulo = models.CharField(max_length=100)
+    arquivo = models.FileField(upload_to='formularios/', verbose_name='Arquivo do Formulário')
+    dt_inclusao = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.titulo} - {self.classe.nome}'
+
+    class Meta:
+        verbose_name = "Formulário"
+        verbose_name_plural = "Formulários"
