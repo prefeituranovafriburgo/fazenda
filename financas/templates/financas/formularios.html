@@ -1,0 +1,539 @@
+{% extends 'template_new.html' %}
+{% load static %}
+{% block nav %}
+
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/cursos.css' %}">
+  <style>
+    .hero-section {
+
+      background: linear-gradient(135deg, rgba(9, 72, 114, 0.7  ), rgba(2, 80, 133, 0.9)), url("{% static 'images/banner_cevest.jpg' %}");
+      background-size: cover;
+      background-position: bottom;
+      color: white;
+      margin-top: 100px;
+      padding: 4rem 0 4rem 0;
+      margin-top: 0px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-content {
+      padding-top: 50px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .hero-stats {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: var(--border-radius-xl);
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      padding: 0 1rem;
+    }
+    
+    .section-title {
+      font-family: var(--font-secondary);
+      font-weight: 700;
+      color: var(--dark-color);
+      margin: 0;
+      position: relative;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+      border-radius: 2px;
+    }
+    
+    .btn-see-more {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem 1.5rem;
+      border: 2px solid var(--primary-color);
+      border-radius: var(--border-radius-lg);
+      transition: all var(--transition-normal);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .btn-see-more:hover {
+      background: var(--primary-color);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .course-card {
+      background: white;
+      border-radius: var(--border-radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: all var(--transition-normal);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 2rem;
+    }
+    
+    .course-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+    }
+    
+    .course-image {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+    
+    .course-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-slow);
+    }
+    
+    .course-card:hover .course-image img {
+      transform: scale(1.1);
+    }
+    
+    .course-category {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius-lg);
+      backdrop-filter: blur(5px);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .course-content {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .course-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--dark-color);
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+    
+    .course-meta {
+      color: var(--gray-600);
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .course-meta i {
+      color: var(--primary-color);
+    }
+    
+    .btn-course-details {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--border-radius-lg);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all var(--transition-normal);
+      margin-top: auto;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+    
+    .btn-course-details:hover {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      color: white;
+    }
+    
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 0 1rem;
+    }
+
+    .formularios-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+      margin-top: 2rem;
+      max-width: 100%;
+    }
+
+    .formularios-card {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-normal);
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      text-decoration: none !important;
+      color: inherit;
+      width: 100%;
+      padding: 0;
+    }
+
+    .formularios-card:hover {
+      transform: translateX(4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .formularios-card .course-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      min-width: 60px;
+      border-radius: 8px;
+      background: rgba(11, 97, 214, 0.1);
+      font-size: 28px;
+      color: #0b61d6;
+      transition: all 0.3s ease;
+      margin: 0;
+    }
+
+    .formularios-card:hover .course-icon {
+      background: #0b61d6;
+      color: #ffffff;
+      transform: scale(1.05);
+    }
+
+    .formularios-card .course-content {
+      padding: 1rem 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      text-align: left;
+      gap: 1rem;
+    }
+
+    .formularios-card .course-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--dark-color);
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    /* Conteúdo dos Formulários */
+    .formulario-content {
+      background: #f9fafb;
+      border-left: 4px solid #0b61d6;
+      padding: 16px;
+      margin: 0 0 1rem 0;
+      border-radius: 0 6px 6px 0;
+      animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+      }
+      to {
+        opacity: 1;
+        max-height: 1000px;
+      }
+    }
+
+    .pdf-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .pdf-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: #f3f4f6;
+      border-radius: 6px;
+      text-decoration: none;
+      color: #1f2937;
+      transition: all 0.3s ease;
+      border: 1px solid #e5e7eb;
+    }
+
+    .pdf-item:hover {
+      background: #e5e7eb;
+      color: #0b61d6;
+      transform: translateX(4px);
+    }
+
+    .pdf-item i:first-child {
+      color: #ef4444;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .pdf-item span {
+      flex-grow: 1;
+      font-weight: 500;
+    }
+
+    .pdf-item i:last-child {
+      color: #0b61d6;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .section-content {
+      padding: 3rem 0;
+    }
+    
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 2rem 0;
+        /* margin-top: 100px; */
+      }
+      .mobile-menu-toggle, .social-links{
+        display: none !important;
+      }
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      
+      .courses-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .course-image {
+        height: 180px;
+      }
+      .btn-homologacao{
+        flex-direction: column;
+      }
+
+      .section-header {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center !important;
+        gap: 1rem;
+      }
+
+      .section-header .rounded-pill {
+        margin-top: 0;
+      }
+    }
+  </style>
+{% endblock %}
+{% block main %}
+
+
+<!-- Cursos Section -->
+<section class="section-content" data-aos="fade-up" style="padding-bottom: 100px; padding-top: 150px;">
+  {% include 'navbar_noticias.html' %}
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Formulários e Declarações </h2>  
+      <a href="/" class="rounded-pill bg-primary px-3 py-1" style="color: white; text-decoration: none;">Voltar</a>    
+    </div>
+    
+
+    <style>
+    
+    
+    
+
+    .section-content .container{max-width:1100px;margin:28px auto; padding:24px;background:#fff;border-radius:10px;box-shadow:0 8px 30px rgba(21,32,43,0.08)}
+    
+
+    .grid{display:grid;grid-template-columns: 1fr 320px;gap:20px;margin-top:20px}
+    .card{background:#ffffff;padding:16px;border-radius:8px;border:1px solid #eef6ff}
+    
+    .notices{margin-top:10px;display:grid;gap:10px}
+    .notice{padding:12px;border-radius:8px;background:#d6e7fd9e;}
+    .notice small{display:block;color:#6b7c90;margin-top:6px}
+
+    .links-list{display:flex;flex-direction:column;gap:8px}
+    .links-list a{display:block;padding:10px;border-radius:6px;background:#f7fbff;border:1px solid #e6f0ff}
+
+    table{width:100%;border-collapse:collapse;margin-top:8px}
+    th,td{padding:8px;border-bottom:1px solid #f0f5fb;text-align:left;font-size:14px;color:#334155}
+    th{font-size:13px;color:#0f1724;font-weight:700;background:#fbfdff}
+
+    .faq-item{margin-top:10px}
+    .faq-q{font-weight:700;color:#0b4f8a}
+    .faq-a{color:#475569;margin-top:6px}
+
+    /* aside .card{position:sticky;top:28px} */
+    .sidebar-section h3{font-size:14px;color:#0b4f8a;margin-bottom:8px}
+
+    .custom-list{margin-left:30px;line-height:1.8;list-style:decimal;padding-left:10px}
+    .custom-list li{margin-bottom:8px;color:#334155}
+
+    footer{margin-top:18px;padding-top:12px;border-top:1px solid #eef6ff;color:#6b7280;font-size:13px;display:flex;justify-content:space-between}
+    @media (max-width:900px){
+        .grid{grid-template-columns:1fr; padding-bottom:12px}
+        aside .card{position:relative;top:0}
+        .top-actions{display:none}
+    }
+    </style>
+   
+    <div class="grid">
+        <main>
+            <section class="card hero">
+            <p class="text-justify" style="text-align: justify;">
+              Aqui você encontra formulários para os diversos processos tratados pela Secretaria da Fazenda de Nova Friburgo. Procure pelo tipo de processo que deseja e baixe o formulário correspondente. A maioria dos formulários são PDFs com campos preenchíveis: você pode baixá-los, preencher no computador e depois imprimir. Os documentos necessários a cada processo estão descritos nos respectivos formulários.
+            </p>
+            <div class="notices">
+                <div class="notice mb-3 d-flex flex-column">
+                <section>
+                <h4 style="color: #0b4f8a; margin-bottom: 15px;">Como utilizar os formulários digitais:</h4>
+                <ul class="custom-list">
+                    <li><strong>1.</strong> Acesse o formulário de requerimento desejado</li>
+                    <li><strong>2.</strong> Preencha todos os campos com as informações solicitadas</li>
+                    <li><strong>3.</strong> Baixe o formulário clicando no link de download</li>
+                    <li><strong>4.</strong> Abra o arquivo em seu computador e certifique-se que está preenchido corretamente</li>
+                    <li><strong>5.</strong> Agora é só imprimir e levar até nosso atendimento presencial.</li>
+                </ul>
+            </section>
+                </div>
+            </div>
+
+            <div class="formularios-grid">
+              <!-- DEBUG: {{ classes|length }} classes encontradas -->
+              {% for classe in classes %}
+                <button onclick="toggleFormContent('{{ classe.div_id }}-content')" class="formularios-card" style="border: none; background: none; cursor: pointer;">
+                  <div class="course-content">
+                    <div class="course-icon">
+                      <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3 class="course-title">{{ classe.nome }}</h3>
+                  </div>
+                </button>
+                <div id="{{ classe.div_id }}-content" class="formulario-content" style="display: none;">
+                  <div class="pdf-list">
+                    {% for formulario in classe.get_formularios %}
+                      <a href="{{ formulario.arquivo.url }}" class="pdf-item" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>{{ formulario.titulo }}</span>
+                        <i class="fas fa-download"></i>
+                      </a>
+                    {% empty %}
+                      <p style="color: #999; text-align: center; padding: 1rem;">Nenhum formulário disponível</p>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% empty %}
+                <p style="color: #f00; text-align: center; padding: 2rem; font-weight: bold;">Nenhuma classe de formulário cadastrada no admin</p>
+              {% endfor %}
+
+            <script>
+              function toggleFormContent(contentId) {
+                const element = document.getElementById(contentId);
+                
+                // Fechar todos os outros conteúdos abertos
+                const allContents = document.querySelectorAll('.formulario-content');
+                allContents.forEach(content => {
+                  if (content.id !== contentId) {
+                    content.style.display = 'none';
+                  }
+                });
+
+                // Toggle do conteúdo atual
+                if (element.style.display === 'none' || element.style.display === '') {
+                  element.style.display = 'block';
+                } else {
+                  element.style.display = 'none';
+                }
+              }
+            </script>
+            
+
+        </main>
+
+        <!--<aside>
+            <div class="card sidebar-section">
+            <h2>Links úteis</h2>
+            <div class="links-list">
+              
+            <a href="https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc132.htm" target="_blank">EMENDA CONSTITUCIONAL</a>
+            <a href="https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp214.htm">LEI COMPLEMENTAR</a>
+            <h3>Portal web</h3>
+            <a href="https://www.producaorestrita.nfse.gov.br/EmissorNacional/Login?ReturnUrl=%2fEmissorNacional">Ambiente de Testes</a>
+            <a href="https://www.nfse.gov.br/EmissorNacional/Login?ReturnUrl=%2fEmissorNacional">Portal Naciona NFS-e</a>
+            <a href="https://www.gov.br/nfse/pt-br/biblioteca/documentacao-tecnica/documentacao-atual/manual-contribuintes-emissor-publico-api-sistema-nacional-nfs-e-v1-2-out2025.pdf/view">Manual para Emissão</a>            
+            <h3>Aplicativo Mobile</h3>
+            <a href="https://play.google.com/store/apps/details?id=br.gov.nfsemobileemissor&pcampaignid=web_share&pli=1">NFSe Mobile Android</a>
+            <a href="https://apps.apple.com/br/app/nfse-mobile/id6444701747">NFSe Mobile iOS</a>
+            <h3>Desenvolvimento</h3>
+            <a href="https://www.nfse.gov.br/swagger/contribuintesissqn/">APIs de Produção</a>
+            <h3>Documentação</h3>
+            <a href="https://www.gov.br/nfse/pt-br/biblioteca/documentacao-tecnica">Documentação Técnica</a>
+            <a href="https://dfe-portal.svrs.rs.gov.br/DFE/ClassificacaoTributaria">Tabela CST/cClassTrib</a>
+            <a href="https://dfe-portal.svrs.rs.gov.br/DFE/TabelaCreditoPresumido">Tabela de crédito presumido</a>
+            <a href="https://portalunico.siscomex.gov.br/classif/#/sumario?perfil=publico">Tabela NCM-SH</a>
+            <a href="https://www.gov.br/mdic/pt-br/assuntos/sdic/comercio-e-servicos/nbs-nomenclatura-brasileira-de-servicos">Tabela NBS</a>
+            <a href="https://www.nfe.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=zjSr04nEi/w=">Download Informe Técnico</a>
+            <h3>Outros</h3>
+            <a href="https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/reforma-consumo">Receita Federal</a>
+            <a href="https://campanhas.serpro.gov.br/reforma-tributaria/">SERPRO</a>
+            </div>
+            </div>
+        </aside>-->
+
+  </div>
+</section>
+
+
+<script>
+  document.getElementById('s-index').classList.add('s-nav-active');
+</script>
+{% endblock %}
+{% block footer %}
+
+{% endblock %}
