@@ -25,12 +25,15 @@ MESES_PT_BR = {
 def index(request):
   
     hoje = date.today()
+    
 
     # parâmetros do mês/ano
     mes = int(request.GET.get('mes', hoje.month))
     ano = int(request.GET.get('ano', hoje.year))
     dia_selecionado = int(request.GET.get('dia', hoje.day))
-
+    
+    dia_hoje = hoje.day if hoje.month == mes and hoje.year == ano else None
+    
     # Gera calendário
     cal = calendar.Calendar(calendar.SUNDAY)
     dias_mes = list(cal.itermonthdays(ano, mes))
@@ -45,8 +48,12 @@ def index(request):
     data_selecionada = date(ano, mes, dia_selecionado)
 
     # Obrigações do dia
-    obrigacoes = AgendaTributaria.objects.filter(data=data_selecionada)
-    
+    obrigacoes_mes = (
+        AgendaTributaria.objects
+        .filter(data__year=ano, data__month=mes)
+        .values_list('data__day', flat=True)
+        .distinct()
+    )
     context = {
         'titulo': 'Fazenda',
         
@@ -60,7 +67,7 @@ def index(request):
         'mes_nome': MESES_PT_BR[mes],
         'dias_mes': dias_mes,
         'dia_selecionado': dia_selecionado,
-        'obrigacoes': obrigacoes,
+        #'obrigacoes': obrigacoes,
         'data_selecionada': data_selecionada,
 
         'mes_anterior': mes_anterior,
@@ -69,7 +76,8 @@ def index(request):
         'ano_proximo': ano_proximo,
         "paginas_relacionadas": PaginasRelacionadas.objects.all(),
         'acessos_rapidos': AcessoRapido.objects.all(),
-        
+        'dias_com_obrigacao': list(obrigacoes_mes),
+        'dia_hoje': dia_hoje,
     }
 
 

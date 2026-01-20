@@ -1026,8 +1026,13 @@ document.addEventListener('DOMContentLoaded', function () {
           {% if dia == 0 %}
             <span></span>
           {% else %}
-            <span  style="cursor: pointer;"
-              class="dia {% if dia == dia_selecionado %}active{% endif %}"
+            <span
+              class="dia
+                {% if dia == dia_selecionado %}active{% endif %}
+                {% if dia in dias_com_obrigacao %}tem-obrigacao{% endif %}
+                {% if dia == dia_hoje %}hoje{% endif %}
+              "
+              style="cursor: pointer;"
               onclick="carregarAgenda('{{ ano }}-{{ mes|stringformat:'02d' }}-{{ dia|stringformat:'02d' }}'); marcarDia(this)"
             >
               {{ dia }}
@@ -1194,17 +1199,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <style>
 
+  .calendar-grid .dia.hoje {
+    background: #ced4da;
+    font-weight: bold;
+}
+
+  .calendar-grid .dia {
+  color: #333;
+  font-weight: 500;
+}
+
   .calendar-grid .dia.tem-obrigacao {
   position: relative;
-  font-weight: bold;
-  color: #1f3c88;
+  color: #333;
 }
 
 .calendar-grid .dia.tem-obrigacao::after {
   content: "";
   width: 6px;
   height: 6px;
-  background: #d63384;
+  background: #1f3c88;
   border-radius: 50%;
   position: absolute;
   bottom: 4px;
@@ -1212,6 +1226,14 @@ document.addEventListener('DOMContentLoaded', function () {
   transform: translateX(-50%);
 }
 
+.calendar-grid .dia.active.tem-obrigacao::after {
+  background: #ffffff;
+}
+
+.calendar-grid .dia.active {
+  background-color: #1f3c88;
+  color: #ffffff;
+}
 
   /* ===== ACESSO RÁPIDO ===== */
 .acesso-rapido{
@@ -1352,9 +1374,10 @@ document.addEventListener('DOMContentLoaded', function () {
   font-size:14px;
 }
 
-.calendar-grid span{
-  padding:8px;
-  border-radius:6px;
+.calendar-grid span {
+  padding: 10px 8px 14px; /* espaço embaixo para a bolinha */
+  border-radius: 6px;
+  position: relative;
 }
 
 .calendar-grid .active{
