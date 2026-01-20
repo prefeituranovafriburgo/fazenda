@@ -25,6 +25,33 @@
     box-shadow: 0 8px 30px rgba(21,32,43,0.08);
   }
 
+      .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      padding: 0 1rem;
+    }
+    
+      .section-title {
+      font-family: var(--font-secondary);
+      font-weight: 700;
+      color: var(--dark-color);
+      margin: 0;
+      position: relative;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+      border-radius: 2px;
+    }
+
   .grid {
     display: grid;
     grid-template-columns: 1fr 320px;
@@ -39,11 +66,18 @@
     border: 1px solid #eef6ff;
   }
 
+    .card2 {
+    background: #d6e7fd9e;
+    padding: 20px 12px 4px 12px; 
+    border-radius: 8px;
+    border: 1px solid #eef6ff;
+  }
+
   .notice {
     padding: 12px;
     border-radius: 8px;
     background: #d6e7fd9e;
-    margin-bottom: 12px;
+    margin-top: 20px;
   }
 
   .links-list {
@@ -82,18 +116,27 @@
 
 {% block main %}
 
-<section class="section-content" data-aos="fade-up" style="padding-bottom:100px; padding-top:150px;">
+<section class="section-content" data-aos="fade-up" style="padding-bottom:100px; padding-top:65px;">
   {% include 'navbar_noticias.html' %}
 
   <div class="container">
-    <div class="section-header d-flex justify-content-between align-items-center mb-4">
-      <h2 class="section-title">Domicílio Tributário Eletrônico</h2>
-      <a href="/" class="rounded-pill bg-primary px-3 py-1 text-white text-decoration-none">Voltar</a>
+    <div class="section-header">
+      <h2 class="section-title">Domicílio Tributário Eletrônico (DTEL)</h2>
+      <a href="/" class="rounded-pill bg-primary px-3 py-1"  style="color: white; text-decoration: none;">Voltar</a>
     </div>
 
     <div class="grid">
       <main>
-        <section class="card">
+        <section class="card2">
+          <div class="mb-3" style="font-size: 14px; color: #6b7280;">
+            <a href="https://gpi18.cloud.el.com.br/ServerExec/acessoBase/?idPortal=008D9DCE8EF2707B45F47C2AD10B38E2&idFunc=c1510b3f-fb48-4b5b-8671-97fc833a0048"
+                target="_blank">
+                Acessar o Domicílio Tributário Eletrônico (DTEL)
+            </a>
+          </div>
+        </section>
+
+        <section class="card mt-3">
           <h3 class="mb-3">Comunicação eletrônica com o contribuinte</h3>
 
           <p style="text-align: justify;">

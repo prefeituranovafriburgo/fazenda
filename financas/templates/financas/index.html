@@ -992,7 +992,7 @@ document.addEventListener('DOMContentLoaded', function () {
 /* Maior que 800px → FORÇA 6 COLUNAS FIXAS */
 @media (min-width: 800px) {
   .acesso-rapido-grid {
-    grid-template-columns: repeat(6, 1fr) !important;
+    grid-template-columns: repeat(3, 1fr) !important;
   }
 }
 </style>
@@ -1379,25 +1379,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
       <a href="/tributos/iptu/" class="modal-option">
         <i class="fas fa-city"></i>
-        <span>IPTU - Informações</span>
+        <span>IPTU - 2026</span>
       </a>
       
       <a href="/tributos/iptu/" class="modal-option">
         <i class="fas fa-city"></i>
         <span>
-          IPTU - 2ª via
+          FORO - 2026
         </span>        
       </a>
 
-      <a href="/tributos/iptu/" class="modal-option">
+      {% comment %} <a href="/tributos/iptu/" class="modal-option">
         <i class="fas fa-city"></i>
         <span>Certidões de Débito</span>
-      </a>
+      </a> {% endcomment %}
+      
       <a href="/tributos/iptu/" class="modal-option">
         <i class="fas fa-city"></i>
         <span>ITBI - Informações</span>
       </a>
-      <a href="/tributos/iptu/" class="modal-option">
+
+      {% comment %} <a href="/tributos/iptu/" class="modal-option">
         <i class="fas fa-city"></i>
         <span>ITBI - Solicitar </span>
       </a>
@@ -1408,14 +1410,16 @@ document.addEventListener('DOMContentLoaded', function () {
       <a href="/tributos/iss/" class="modal-option">
         <i class="fas fa-file-invoice-dollar"></i>
         <span>ISS - Informações</span>
-      </a>
+      </a> {% endcomment %}
+      
       <a href="/tributos/iss/" class="modal-option">
         <i class="fas fa-file-invoice-dollar"></i>
         <span>ISS - Nota Fiscal</span>
       </a>
-      <a href="/tributos/divida-ativa/" class="modal-option">
+
+      <a href="https://gpi18.cloud.el.com.br/ServerExec/acessoBase/?idPortal=008D9DCE8EF2707B45F47C2AD10B38E2&idFunc=ee6f9a8f-2a52-4e3f-af53-380ca41cf307&idFunc=1275dc05-e47d-4580-8e5d-68da824daf02" class="modal-option">
         <i class="fas fa-balance-scale"></i>
-        <span>TFVS</span>
+        <span>Emissão de Guias para Pagamento (Dívida Ativa)</span>
       </a>
 
      

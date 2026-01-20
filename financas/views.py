@@ -83,7 +83,7 @@ def nfse(request):
 
 def dte(request):
     context = {
-
+        'titulo': 'Domicílio Tributário Eletrônico',
     }
     return render(request, 'financas/dte.html', context)
 
