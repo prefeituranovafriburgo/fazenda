@@ -1149,17 +1149,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
           // Renderiza os dias
           data.dias_mes.forEach(dia => {
-              if (dia === 0) {
-                  grid.innerHTML += "<span></span>"
-              } else {
-                  grid.innerHTML += `
-                      <span class="dia"
-                          style="cursor:pointer;"
-                          onclick="carregarAgenda('${data.ano}-${String(data.mes).padStart(2,'0')}-${String(dia).padStart(2,'0')}'); marcarDia(this)"
-                      >${dia}</span>
-                  `
-              }
+            if (dia === 0) {
+              grid.innerHTML += "<span></span>"
+            } else {
+
+              const temObrigacao = data.dias_com_obrigacao.includes(dia)
+
+              grid.innerHTML += `
+                <span class="dia ${temObrigacao ? 'tem-obrigacao' : ''}"
+                  style="cursor:pointer;"
+                  onclick="carregarAgenda('${data.ano}-${String(data.mes).padStart(2,'0')}-${String(dia).padStart(2,'0')}'); marcarDia(this)">
+                  ${dia}
+                </span>
+              `
+            }
           })
+
 
           // Atualiza navegação
           document.getElementById("btn-mes-anterior").onclick = () => {
@@ -1188,6 +1193,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 <style>
+
+  .calendar-grid .dia.tem-obrigacao {
+  position: relative;
+  font-weight: bold;
+  color: #1f3c88;
+}
+
+.calendar-grid .dia.tem-obrigacao::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: #d63384;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
   /* ===== ACESSO RÁPIDO ===== */
 .acesso-rapido{
   padding:50px 20px;
