@@ -87,6 +87,11 @@ def dte(request):
     }
     return render(request, 'financas/dte.html', context)
 
+def cadastramento(request):
+    context = {
+        'titulo': 'Passo a passo: Cadastramento no Emissor Nacional',
+    }
+    return render(request, 'financas/cadastramento.html', context)
 
 def noticia_detalhe(request, slug):
     """Exibe o detalhe de uma notícia"""
