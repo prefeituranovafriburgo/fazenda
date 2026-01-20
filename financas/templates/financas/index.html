@@ -1396,7 +1396,7 @@ document.addEventListener('DOMContentLoaded', function () {
       
       <a href="/tributos/iptu/" class="modal-option">
         <i class="fas fa-city"></i>
-        <span>ITBI - Informações</span>
+        <span>ITBI</span>
       </a>
 
       {% comment %} <a href="/tributos/iptu/" class="modal-option">
@@ -1412,17 +1412,15 @@ document.addEventListener('DOMContentLoaded', function () {
         <span>ISS - Informações</span>
       </a> {% endcomment %}
       
-      <a href="/tributos/iss/" class="modal-option">
+      <a href="https://fazenda.novafriburgo.rj.gov.br/noticia/emissao-de-nota-fiscal/" class="modal-option">
         <i class="fas fa-file-invoice-dollar"></i>
         <span>ISS - Nota Fiscal</span>
       </a>
 
       <a href="https://gpi18.cloud.el.com.br/ServerExec/acessoBase/?idPortal=008D9DCE8EF2707B45F47C2AD10B38E2&idFunc=ee6f9a8f-2a52-4e3f-af53-380ca41cf307&idFunc=1275dc05-e47d-4580-8e5d-68da824daf02" class="modal-option">
         <i class="fas fa-balance-scale"></i>
-        <span>Emissão de Guias para Pagamento (Dívida Ativa)</span>
+        <span>Emissão de Pagamentos (Dívida Ativa)</span>
       </a>
-
-     
 
     </div>
 
@@ -1448,7 +1446,7 @@ document.addEventListener('DOMContentLoaded', function () {
   padding: 40px 35px;
   border-radius: 16px;
   width: 95%;
-  min-height: 600px;
+  min-height: 500px;
   max-width: 850px;
   position: relative;
   animation: modalIn 0.35s ease;
@@ -1505,23 +1503,29 @@ document.addEventListener('DOMContentLoaded', function () {
 /* OPTION BUTTON */
 .modal-option {
   text-decoration: none;
-  padding: 30px 20px;
+  padding: 40px 30px;
   background: #f8fafc;
   border-radius: 12px;
   border:1px solid #e5e7eb;
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:center;
+  justify-content:center !important;
   gap: 10px;
   transition: all .2s ease;
   font-weight: 600;
   color: #1f2937;
 }
 
+.modal-option span {
+  text-align: center;
+  line-height: 1.2;
+}
+
 .modal-option i{
-  font-size: 28px;
+  font-size: 30px;
   color: #0b61d6;
+  margin-bottom: 8px;
 }
 
 .modal-option:hover {
