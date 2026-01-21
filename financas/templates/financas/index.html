@@ -1064,8 +1064,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   </div>
 </section>
+
 <script>
-  function formatarDataPtBr(dataISO) {
+/* ================= UTIL ================= */
+
+function formatarDataPtBr(dataISO) {
   const meses = [
     "Janeiro", "Fevereiro", "Março", "Abril",
     "Maio", "Junho", "Julho", "Agosto",
@@ -1073,128 +1076,117 @@ document.addEventListener('DOMContentLoaded', function () {
   ]
 
   const data = new Date(dataISO + "T00:00:00")
-  const dia = data.getDate()
-  const mes = meses[data.getMonth()]
-  const ano = data.getFullYear()
-
-  return `${dia.toString().padStart(2, '0')} de ${mes} de ${ano}`
+  return `${String(data.getDate()).padStart(2, '0')} de ${meses[data.getMonth()]} de ${data.getFullYear()}`
 }
 
-  async function carregarAgenda(data) {
+/* ================= AGENDA ================= */
+
+async function carregarAgenda(data) {
   try {
     const response = await fetch(`/agenda/api/?data=${data}`)
-    const resultado = await response.json()
+    const registros = await response.json()
 
     const container = document.getElementById("agenda-container")
     const titulo = document.getElementById("agenda-titulo")
 
     container.innerHTML = ""
 
-    const registros = Array.isArray(resultado)
-      ? resultado
-      : resultado.registros || resultado.dados || []
+    const lista = Array.isArray(registros) ? registros : []
 
-    // Atualiza o título
-    const dataFormatada = formatarDataPtBr(data)
-    titulo.innerHTML = `Há ${registros.length} obrigação(ões) tributária(s) para ${dataFormatada}`
+    titulo.innerHTML = `Há ${lista.length} obrigação(ões) tributária(s) para ${formatarDataPtBr(data)}`
 
-    if (registros.length === 0) {
+    if (!lista.length) {
       container.innerHTML = "<p>Nenhuma obrigação para este dia.</p>"
       return
     }
 
-    registros.forEach(item => {
-      const div = document.createElement("div")
-      div.classList.add("agenda-item")
-
-      div.innerHTML = `
-        <strong>${item.titulo}</strong><br>
-        ${item.descricao}
+    lista.forEach(item => {
+      container.innerHTML += `
+        <div class="agenda-item">
+          <strong>${item.titulo}</strong><br>
+          ${item.descricao}
+        </div>
       `
-
-      container.appendChild(div)
     })
 
-  } catch (error) {
-    console.error("Erro ao carregar agenda:", error)
+  } catch (e) {
+    console.error("Erro agenda:", e)
   }
 }
 
+function marcarDia(el) {
+  document.querySelectorAll(".calendar-grid .dia").forEach(d => d.classList.remove("active"))
+  el.classList.add("active")
+}
 
-  function marcarDia(elemento) {
-    document.querySelectorAll(".calendar-grid .dia").forEach(dia => {
-      dia.classList.remove("active")
-    })
+/* ================= CALENDÁRIO ================= */
 
-    elemento.classList.add("active")
+async function carregarMes(mes, ano) {
+  try {
+    const response = await fetch(`/agenda/api-calendario/?mes=${mes}&ano=${ano}`)
+    const data = await response.json()
+
+    const grid = document.getElementById("calendar-grid")
+    const titulo = document.getElementById("cal-titulo")
+
+    titulo.innerText = `${data.mes_nome} de ${data.ano}`
+
+    grid.innerHTML = `
+      <span>Dom</span><span>Seg</span><span>Ter</span>
+      <span>Qua</span><span>Qui</span><span>Sex</span><span>Sab</span>
+    `
+
+    // 🔥 CÁLCULOS 100% CONFIÁVEIS
+    const primeiroDiaSemana = new Date(data.ano, data.mes - 1, 1).getDay()
+    const totalDias = new Date(data.ano, data.mes, 0).getDate()
+
+    // Espaços antes do dia 1
+    for (let i = 0; i < primeiroDiaSemana; i++) {
+      grid.innerHTML += "<span></span>"
+    }
+
+    // Dias do mês
+    for (let dia = 1; dia <= totalDias; dia++) {
+
+      const diasComObrigacao = (data.dias_com_obrigacao || []).map(Number)
+      const temObrigacao = diasComObrigacao.includes(dia)
+
+      grid.innerHTML += `
+        <span class="dia ${temObrigacao ? 'tem-obrigacao' : ''}"
+          style="cursor:pointer;"
+          onclick="carregarAgenda('${data.ano}-${String(data.mes).padStart(2,'0')}-${String(dia).padStart(2,'0')}'); marcarDia(this)">
+          ${dia}
+        </span>
+      `
+    }
+
+    // Completa até fechar 6 linhas
+    const total = grid.children.length
+    for (let i = total; i < 49; i++) {
+      grid.innerHTML += "<span></span>"
+    }
+
+    document.getElementById("btn-mes-anterior").onclick = () =>
+      carregarMes(data.mes_anterior, data.ano_anterior)
+
+    document.getElementById("btn-mes-proximo").onclick = () =>
+      carregarMes(data.mes_proximo, data.ano_proximo)
+
+  } catch (e) {
+    console.error("Erro calendário:", e)
   }
+}
 
-  
-  async function carregarMes(mes, ano) {
-      try {
-          const response = await fetch(`/agenda/api-calendario/?mes=${mes}&ano=${ano}`)
-          const data = await response.json()
+document.getElementById("btn-mes-anterior").onclick = () => {
+  carregarMes({{ mes_anterior }}, {{ ano_anterior }})
+}
 
-          const grid = document.getElementById("calendar-grid")
-          const titulo = document.getElementById("cal-titulo")
-
-          // Atualiza título do calendário
-          titulo.innerHTML = `${data.mes_nome} de ${data.ano}`
-
-          // Limpa os dias
-          grid.innerHTML = `
-              <span>Dom</span>
-              <span>Seg</span>
-              <span>Ter</span>
-              <span>Qua</span>
-              <span>Qui</span>
-              <span>Sex</span>
-              <span>Sab</span>
-          `
-
-          // Renderiza os dias
-          data.dias_mes.forEach(dia => {
-            if (dia === 0) {
-              grid.innerHTML += "<span></span>"
-            } else {
-
-              const temObrigacao = data.dias_com_obrigacao.includes(dia)
-
-              grid.innerHTML += `
-                <span class="dia ${temObrigacao ? 'tem-obrigacao' : ''}"
-                  style="cursor:pointer;"
-                  onclick="carregarAgenda('${data.ano}-${String(data.mes).padStart(2,'0')}-${String(dia).padStart(2,'0')}'); marcarDia(this)">
-                  ${dia}
-                </span>
-              `
-            }
-          })
-
-
-          // Atualiza navegação
-          document.getElementById("btn-mes-anterior").onclick = () => {
-              carregarMes(data.mes_anterior, data.ano_anterior)
-          }
-
-          document.getElementById("btn-mes-proximo").onclick = () => {
-              carregarMes(data.mes_proximo, data.ano_proximo)
-          }
-
-      } catch (error) {
-          console.error("Erro ao carregar calendário:", error)
-      }
-  }
-
-
-
-  // INICIALIZA CLIQUES
-  document.getElementById("btn-mes-anterior").onclick = () => {
-      carregarMes({{ mes_anterior }}, {{ ano_anterior }})
-  }
-  document.getElementById("btn-mes-proximo").onclick = () => {
-      carregarMes({{ mes_proximo }}, {{ ano_proximo }})
-  }
+document.getElementById("btn-mes-proximo").onclick = () => {
+  carregarMes({{ mes_proximo }}, {{ ano_proximo }})
+}
 </script>
+
+
 
 
 <style>

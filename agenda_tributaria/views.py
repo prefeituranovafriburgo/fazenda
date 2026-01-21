@@ -74,6 +74,13 @@ def api_calendario(request):
 
     dias_mes = [0] * dia_semana + list(range(1, qtd_dias + 1))
 
+    dias_com_obrigacao = list(
+        AgendaTributaria.objects.filter(
+            data__year=ano,
+            data__month=mes
+        ).values_list("data__day", flat=True).distinct()
+    )
+
     meses = [
         "Janeiro", "Fevereiro", "Março", "Abril",
         "Maio", "Junho", "Julho", "Agosto",
@@ -91,6 +98,7 @@ def api_calendario(request):
         "ano": ano,
         "mes_nome": meses[mes - 1],
         "dias_mes": dias_mes,
+        "dias_com_obrigacao": dias_com_obrigacao,
         "mes_anterior": mes_anterior,
         "ano_anterior": ano_anterior,
         "mes_proximo": mes_proximo,
