@@ -1427,11 +1427,6 @@ document.getElementById("btn-mes-proximo").onclick = () => {
         <i class="fas fa-city"></i>
         <span>IPTU - 2026</span>
       </a>
-
-      <a href="https://gpi18.cloud.el.com.br/ServerExec/acessoBase/?idPortal=008D9DCE8EF2707B45F47C2AD10B38E2&idFunc=f99a5bfe-f4ff-45a9-a6a5-a2e32bebe893" class="modal-option">
-        <i class="fas fa-city"></i>
-        <span>IPTU - Pago</span>
-      </a>
       
       <a href="https://fazenda.novafriburgo.rj.gov.br/" class="modal-option">
         <i class="fas fa-city"></i>
