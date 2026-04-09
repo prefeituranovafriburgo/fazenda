@@ -1,0 +1,354 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acompanhar Fila{% if dados %} — Senha {{ dados.numero }}{% endif %}</title>
+  <link rel="icon" type="image/x-icon" href="{% static 'images/brasao.ico' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary:      #0066cc;
+      --primary-dark: #004c99;
+      --primary-light:#3385d6;
+      --bg:           #f0f5ff;
+      --white:        #ffffff;
+      --text-dark:    #2c3e50;
+      --green:        #16a34a;
+      --yellow:       #ca8a04;
+      --red:          #dc2626;
+      --gray:         #6b7280;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      min-height: 100%;
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      background: var(--bg);
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 14px;
+      flex-shrink: 0;
+      height: 80px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    }
+
+    .topbar .logo {
+      height: 50px;
+      object-fit: contain;
+      filter: drop-shadow(0 1px 3px rgba(0,0,0,0.3));
+    }
+
+    .topbar .titulo {
+      color: var(--white);
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .conteudo {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 28px 16px 60px;
+    }
+
+    .page-titulo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 24px;
+      text-align: center;
+      position: relative;
+    }
+
+    .page-titulo::after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 4px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 2px;
+      margin: 10px auto 0;
+    }
+
+    .alert-chamada {
+      width: 100%;
+      max-width: 480px;
+      background: #dcfce7;
+      border: 2px solid #16a34a;
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      animation: blink-border 1s infinite;
+    }
+
+    .alert-chamada p {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #15803d;
+    }
+
+    @keyframes blink-border {
+      0%, 100% { border-color: #16a34a; }
+      50%       { border-color: #86efac; }
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 102, 204, 0.13);
+      width: 100%;
+      max-width: 480px;
+      padding: 32px 28px;
+      text-align: center;
+    }
+
+    .label-servico {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .servico-nome {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 28px;
+    }
+
+    .senha-box {
+      background: #f0f7ff;
+      border: 2.5px solid var(--primary);
+      border-radius: 16px;
+      padding: 28px 16px 20px;
+      margin-bottom: 24px;
+    }
+
+    .senha-label {
+      font-size: 0.72rem;
+      color: var(--gray);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 10px;
+    }
+
+    .senha-numero {
+      font-size: clamp(3rem, 14vw, 4.5rem);
+      font-weight: 900;
+      color: var(--primary);
+      letter-spacing: 5px;
+      line-height: 1;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .status-AGUARDANDO      { background: #fef9c3; color: var(--yellow); }
+    .status-CHAMADA         { background: #dcfce7; color: var(--green); }
+    .status-ATENDENDO       { background: #dcfce7; color: var(--green); }
+    .status-CONCLUIDO       { background: #f3f4f6; color: var(--gray); }
+    .status-NAO_COMPARECEU  { background: #fee2e2; color: var(--red); }
+    .status-CANCELADA       { background: #fee2e2; color: var(--red); }
+
+    .fila-info {
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 16px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .fi-title {
+      font-size: 0.72rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .fi-valor {
+      font-size: clamp(2rem, 10vw, 2.8rem);
+      font-weight: 900;
+      color: var(--text-dark);
+      line-height: 1.1;
+    }
+
+    .fi-sub {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+
+    .ultima-chamada-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 0.88rem;
+      color: #15803d;
+      font-weight: 500;
+    }
+
+    .ultima-chamada-box strong {
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+
+    .pulse-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      margin-right: 6px;
+      vertical-align: middle;
+      animation: pulse-anim 2s infinite;
+    }
+
+    @keyframes pulse-anim {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.72rem;
+      color: var(--gray);
+      margin-top: 18px;
+      font-weight: 500;
+    }
+
+    .erro-box {
+      background: #fee2e2;
+      border: 2px solid #dc2626;
+      border-radius: 16px;
+      padding: 32px 24px;
+      text-align: center;
+      max-width: 480px;
+      width: 100%;
+    }
+
+    .erro-box i { font-size: 2.5rem; color: var(--red); margin-bottom: 12px; }
+    .erro-box p { color: #991b1b; font-weight: 600; font-size: 1rem; }
+
+    @media (max-width: 480px) {
+      .topbar { height: 70px; padding: 0 16px; gap: 10px; }
+      .topbar .logo { height: 40px; }
+      .topbar .titulo { font-size: 1rem; }
+      .card { padding: 24px 18px; }
+      .senha-box { padding: 22px 12px 16px; }
+      .status-badge { font-size: 0.85rem; padding: 8px 16px; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="topbar">
+    <img class="logo" src="{% static 'images/brasao.ico' %}" alt="Brasão" onerror="this.style.display='none'">
+    <span class="titulo">Prefeitura Municipal de Nova Friburgo</span>
+  </div>
+
+  <div class="conteudo">
+    <h2 class="page-titulo">Acompanhe sua Fila</h2>
+
+    {% if erro %}
+      <div class="erro-box">
+        <i class="fas fa-exclamation-triangle"></i>
+        <p>{{ erro }}</p>
+      </div>
+    {% elif dados %}
+
+      {% if dados.status == 'CHAMADA' or dados.status == 'ATENDENDO' %}
+      <div class="alert-chamada">
+        <p><i class="fas fa-bell" style="margin-right:8px;"></i>Sua senha está sendo chamada!<br>Dirija-se ao guichê.</p>
+      </div>
+      {% endif %}
+
+      <div class="card">
+
+        <div class="label-servico">Serviço</div>
+        <div class="servico-nome">{{ dados.botao_nome }}</div>
+
+        <div class="senha-box">
+          <div class="senha-label">Sua Senha</div>
+          <div class="senha-numero">{{ dados.numero }}</div>
+        </div>
+
+        <div class="status-badge status-{{ dados.status }}">
+          {% if dados.status == 'AGUARDANDO' %}<i class="fas fa-clock"></i> Aguardando
+          {% elif dados.status == 'CHAMADA' %}<i class="fas fa-bullhorn"></i> Chamada!
+          {% elif dados.status == 'ATENDENDO' %}<i class="fas fa-check-circle"></i> Em Atendimento
+          {% elif dados.status == 'CONCLUIDO' %}<i class="fas fa-check-double"></i> Concluído
+          {% elif dados.status == 'NAO_COMPARECEU' %}<i class="fas fa-times-circle"></i> Não Compareceu
+          {% elif dados.status == 'CANCELADA' %}<i class="fas fa-ban"></i> Cancelada
+          {% else %}{{ dados.status_display }}
+          {% endif %}
+        </div>
+
+        {% if dados.status == 'AGUARDANDO' %}
+        <div class="fila-info">
+          <div class="fi-title">Pessoas na sua frente</div>
+          <div class="fi-valor">{{ dados.senhas_na_frente }}</div>
+          <div class="fi-sub">{% if dados.senhas_na_frente == 0 %}Você é o próximo!{% else %}aguardando antes de você{% endif %}</div>
+        </div>
+        {% endif %}
+
+        {% if dados.ultima_chamada_numero %}
+        <div class="ultima-chamada-box">
+          <i class="fas fa-ticket-alt" style="margin-right:6px;"></i>
+          Última senha chamada: <strong>{{ dados.ultima_chamada_numero }}</strong>
+          {% if dados.ultima_chamada_guiche %}&nbsp;— Guichê {{ dados.ultima_chamada_guiche }}{% endif %}
+        </div>
+        {% endif %}
+
+        <div class="live-badge">
+          <span class="pulse-dot"></span>Atualização automática
+        </div>
+
+      </div>
+
+    {% endif %}
+  </div>
+</div>
+
+{% if not erro %}
+<script>
+  setTimeout(function() { location.reload(); }, 5000);
+</script>
+{% endif %}
+</body>
+</html>

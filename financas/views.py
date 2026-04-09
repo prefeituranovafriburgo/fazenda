@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
+from django.conf import settings
 from .models import Servico, PaginasRelacionadas, AcessoRapido, SiteConfiguracao, LinkRodape, NoticiasFazenda, Classe_Formulario, Formularios
 import calendar
+import requests
 from datetime import date, datetime
 from agenda_tributaria.models import AgendaTributaria
 from django.apps import apps
@@ -149,3 +151,30 @@ def formularios(request):
         'classes': classes,
     }
     return render(request, 'financas/formularios.html', context)
+
+
+def acompanhar_senha(request, senha_id):
+    """Página pública para acompanhar posição na fila via QR code.
+    Consome a API do sistema_senhas2."""
+    api_base = getattr(settings, 'SISTEMA_SENHAS_API_URL', 'http://localhost:8001')
+    api_url = f"{api_base}/senhas/api/acompanhar/{senha_id}/"
+
+    dados = None
+    erro = None
+    try:
+        resp = requests.get(api_url, timeout=5)
+        if resp.status_code == 200:
+            dados = resp.json()
+        elif resp.status_code == 404:
+            erro = 'Senha não encontrada.'
+        else:
+            erro = 'Não foi possível consultar a senha no momento.'
+    except requests.RequestException:
+        erro = 'Serviço de senhas indisponível no momento.'
+
+    context = {
+        'dados': dados,
+        'erro': erro,
+        'senha_id': senha_id,
+    }
+    return render(request, 'financas/acompanhar_senha.html', context)

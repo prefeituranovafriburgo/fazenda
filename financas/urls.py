@@ -14,6 +14,7 @@ urlpatterns = [
     path('dte/', views.dte, name='dte'),     
     path('formularios/', views.formularios, name='formularios'),
     path('cadastramento/', views.cadastramento, name='cadastramento'),
+    path('acompanhar-senha/<int:senha_id>/', views.acompanhar_senha, name='acompanhar_senha'),
 ]
 
 
