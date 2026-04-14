@@ -218,4 +218,4 @@ EMAIL_HOST_PASSWORD = email_pass
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # URL base da API do sistema de senhas (sistema_senhas2)
-SISTEMA_SENHAS_API_URL = os.environ.get('SISTEMA_SENHAS_API_URL', 'http://192.168.0.179:8000')
+SISTEMA_SENHAS_API_URL = os.environ.get('SISTEMA_SENHAS_API_URL', 'http://192.168.0.71:8000')
