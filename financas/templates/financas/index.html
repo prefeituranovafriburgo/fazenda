@@ -814,6 +814,74 @@ document.addEventListener('DOMContentLoaded', function () {
     </div>
     </div>
 
+    <!-- ========== AGENDA TRIBUTÁRIA ========== -->
+    <section id="agenda" class="agenda-tributaria">
+      <h2>Agenda Tributária</h2>
+
+      <div class="agenda-wrapper">
+
+        <div class="calendar-card">
+          <div class="calendar-header">
+
+              <span class="cal-nav" id="btn-mes-anterior" style="cursor:pointer;">&lsaquo;</span>
+
+            <strong  id="cal-titulo">{{ mes_nome }} de {{ ano }}</strong>
+
+           <span class="cal-nav" id="btn-mes-proximo" style="cursor:pointer;">&rsaquo;</span>
+          </div>
+
+          <div class="calendar-grid" id="calendar-grid">
+            <span>Dom</span>
+            <span>Seg</span>
+            <span>Ter</span>
+            <span>Qua</span>
+            <span>Qui</span>
+            <span>Sex</span>
+            <span>Sab</span>
+
+            {% for dia in dias_mes %}
+              {% if dia == 0 %}
+                <span></span>
+              {% else %}
+                <span
+                  class="dia
+                    {% if dia == dia_selecionado %}active{% endif %}
+                    {% if dia in dias_com_obrigacao %}tem-obrigacao{% endif %}
+                    {% if dia == dia_hoje %}hoje{% endif %}
+                  "
+                  style="cursor: pointer;"
+                  onclick="carregarAgenda('{{ ano }}-{{ mes|stringformat:'02d' }}-{{ dia|stringformat:'02d' }}'); marcarDia(this)"
+                >
+                  {{ dia }}
+                </span>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="agenda-info">
+          <strong id="agenda-titulo">
+            Há {{ obrigacoes|length }} obrigação(ões) tributária(s) para {{ data_selecionada|date:"d \\d\\e F \\d\\e Y" }}
+          </strong>
+
+
+          <div id="agenda-container">
+
+            {% for item in obrigacoes %}
+              <div class="agenda-item">
+                <strong>{{ item.titulo }}</strong><br>
+                {{ item.descricao }}
+              </div>
+            {% empty %}
+              <p>Nenhuma obrigação para este dia.</p>
+            {% endfor %}
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <div class="section-header mt-5">
         <h2 class="section-title">Páginas Relacionadas</h2>
     </div>
@@ -997,73 +1065,7 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 </style>
 
-<!-- ========== AGENDA TRIBUTÁRIA ========== -->
-<section id="agenda" class="agenda-tributaria">
-  <h2>Agenda Tributária</h2>
-
-  <div class="agenda-wrapper">
-
-    <div class="calendar-card">
-      <div class="calendar-header">
-
-          <span class="cal-nav" id="btn-mes-anterior" style="cursor:pointer;">&lsaquo;</span>
-
-        <strong  id="cal-titulo">{{ mes_nome }} de {{ ano }}</strong>
-
-       <span class="cal-nav" id="btn-mes-proximo" style="cursor:pointer;">&rsaquo;</span>
-      </div>
-
-      <div class="calendar-grid" id="calendar-grid">
-        <span>Dom</span>
-        <span>Seg</span>
-        <span>Ter</span>
-        <span>Qua</span>
-        <span>Qui</span>
-        <span>Sex</span>
-        <span>Sab</span>
-
-        {% for dia in dias_mes %}
-          {% if dia == 0 %}
-            <span></span>
-          {% else %}
-            <span
-              class="dia
-                {% if dia == dia_selecionado %}active{% endif %}
-                {% if dia in dias_com_obrigacao %}tem-obrigacao{% endif %}
-                {% if dia == dia_hoje %}hoje{% endif %}
-              "
-              style="cursor: pointer;"
-              onclick="carregarAgenda('{{ ano }}-{{ mes|stringformat:'02d' }}-{{ dia|stringformat:'02d' }}'); marcarDia(this)"
-            >
-              {{ dia }}
-            </span>
-          {% endif %}
-        {% endfor %}
-      </div>
-    </div>
-
-    <div class="agenda-info">
-      <strong id="agenda-titulo">
-        Há {{ obrigacoes|length }} obrigação(ões) tributária(s) para {{ data_selecionada|date:"d \\d\\e F \\d\\e Y" }}
-      </strong>
-
-
-      <div id="agenda-container">
-
-        {% for item in obrigacoes %}
-          <div class="agenda-item">
-            <strong>{{ item.titulo }}</strong><br>
-            {{ item.descricao }}
-          </div>
-        {% empty %}
-          <p>Nenhuma obrigação para este dia.</p>
-        {% endfor %}
-
-      </div>
-    </div>
-
-  </div>
-</section>
+ 
 
 <style>
   .agenda-item {
@@ -1216,7 +1218,7 @@ document.getElementById("btn-mes-proximo").onclick = () => {
   content: "";
   width: 6px;
   height: 6px;
-  background: #1f3c88;
+  background: var(--primary-color) !important;
   border-radius: 50%;
   position: absolute;
   bottom: 4px;
@@ -1229,8 +1231,53 @@ document.getElementById("btn-mes-proximo").onclick = () => {
 }
 
 .calendar-grid .dia.active {
-  background-color: #1f3c88;
-  color: #ffffff;
+  background-color: var(--primary-color) !important;
+  color: #ffffff !important;
+}
+
+/* Aplicar cor primária ao calendário e painel lateral da agenda (não ao título) */
+.calendar-card {
+  /* sem borda superior para não exibir linha azul */
+}
+
+.calendar-header #cal-titulo {
+  color: var(--primary-color) !important;
+  font-weight: 700 !important;
+}
+
+.cal-nav {
+  color: var(--primary-color) !important;
+}
+
+.agenda-info {
+  border-top: 4px solid var(--primary-color) !important;
+}
+
+#agenda-titulo {
+  color: var(--primary-color) !important;
+  font-weight: 700 !important;
+}
+
+/* Faixa azul estilo simulador para o título do mês (linha < mes >) */
+.calendar-header #cal-titulo {
+  /* Remove inner blue box — header itself provides the full-width blue bar */
+  display: block;
+  padding: 0;
+  background: transparent;
+  color: #fff !important;
+  border-radius: 0;
+  font-weight: 700;
+}
+
+/* Faixa azul estilo simulador para o título do painel direito (Há X obrigação(ões)) */
+#agenda-titulo {
+  display: block;
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: #fff !important;
+  border-radius: 6px;
 }
 
   /* ===== ACESSO RÁPIDO ===== */
@@ -1355,6 +1402,10 @@ document.getElementById("btn-mes-proximo").onclick = () => {
   justify-content:space-between;
   align-items:center;
   margin-bottom:15px;
+  padding:12px 14px;
+  border-radius:8px 8px 6px 6px;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: #fff;
 }
 
 .calendar-header button{
@@ -1362,6 +1413,19 @@ document.getElementById("btn-mes-proximo").onclick = () => {
   background:transparent;
   font-size:20px;
   cursor:pointer;
+}
+
+.cal-nav{
+  color: #fff !important;
+  background: transparent !important;
+  width: auto;
+  height: auto;
+  display: inline-block;
+  padding: 0 6px;
+  align-items: unset;
+  justify-content: unset;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .calendar-grid{
@@ -1379,13 +1443,14 @@ document.getElementById("btn-mes-proximo").onclick = () => {
 }
 
 .calendar-grid .active{
-  background:#004f63;
-  color:#fff;
+  background: var(--primary-color) !important;
+  color:#fff !important;
   font-weight:600;
 }
 
 .agenda-info{
-  background:#fff;
+  background: linear-gradient(135deg, rgba(0,102,204,0.03), rgba(0,76,153,0.02));
+  border: 2px solid var(--primary-color) !important;
   padding:25px;
   border-radius:8px;
   font-size:14px;
