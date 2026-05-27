@@ -77,7 +77,7 @@ INSTALLED_APPS = [
     # 'guardiao',
     'agenda_tributaria',
     'financas',
-    'ferramentas_site'
+    # 'ferramentas_site'
     
     # 'django_cpf_cnpj',
 ]
