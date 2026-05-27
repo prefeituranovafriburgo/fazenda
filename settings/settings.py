@@ -69,17 +69,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #apps
-    # 'cursos',
-    # 'palestras',
-    # 'administracao',
-    'autenticacao',
-    # 'guardiao',
+    # apps
     'agenda_tributaria',
     'financas',
-    'ferramentas_site'
-    
-    # 'django_cpf_cnpj',
 ]
 
 MIDDLEWARE = [

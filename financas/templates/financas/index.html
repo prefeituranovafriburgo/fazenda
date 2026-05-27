@@ -1158,9 +1158,11 @@ async function carregarMes(mes, ano) {
 
       const diasComObrigacao = (data.dias_com_obrigacao || []).map(Number)
       const temObrigacao = diasComObrigacao.includes(dia)
+      const diaHoje = Number(data.dia_hoje)
+      const isHoje = diaHoje === dia
 
       grid.innerHTML += `
-        <span class="dia ${temObrigacao ? 'tem-obrigacao' : ''}"
+        <span class="dia ${temObrigacao ? 'tem-obrigacao' : ''} ${isHoje ? 'hoje' : ''}"
           style="cursor:pointer;"
           onclick="carregarAgenda('${data.ano}-${String(data.mes).padStart(2,'0')}-${String(dia).padStart(2,'0')}'); marcarDia(this)">
           ${dia}

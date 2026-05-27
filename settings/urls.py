@@ -4,11 +4,10 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-urlpatterns = [
-    path('', include('autenticacao.urls')),    
+urlpatterns = [  
     path('', include('financas.urls')),    
     path('agenda/', include('agenda_tributaria.urls')),
-    path('tools/', include('ferramentas_site.urls')),
+    # path('tools/', include('ferramentas_site.urls')),
     # path('administracao/', include('administracao.urls')),    
     path('admin/', admin.site.urls),
 ]
