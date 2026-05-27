@@ -73,7 +73,7 @@ INSTALLED_APPS = [
     # 'cursos',
     # 'palestras',
     # 'administracao',
-    'autenticacao',
+    # 'autenticacao',
     # 'guardiao',
     'agenda_tributaria',
     'financas',
