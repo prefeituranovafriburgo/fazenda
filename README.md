@@ -9,8 +9,7 @@ Projeto Django modular para gerenciar recursos e funcionalidades do site "Fazend
 - **Instalação rápida:** comandos para rodar localmente
 - **Configuração:** arquivo de variáveis e exemplos
 - **Execução:** migrações, criação de superusuário e servidor
-- **Apps principais:** apps incluídos e opcionais
-- **Testes & coleta de estáticos**
+
 
 ## Sobre
 
