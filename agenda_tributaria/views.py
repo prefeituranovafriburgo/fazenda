@@ -93,6 +93,10 @@ def api_calendario(request):
     mes_proximo = mes + 1 if mes < 12 else 1
     ano_proximo = ano if mes < 12 else ano + 1
 
+    # Indica o dia atual quando o mês/ano solicitado for o mês/ano de hoje
+    hoje = dt.date.today()
+    dia_hoje = hoje.day if hoje.month == mes and hoje.year == ano else None
+
     return JsonResponse({
         "mes": mes,
         "ano": ano,
@@ -103,4 +107,5 @@ def api_calendario(request):
         "ano_anterior": ano_anterior,
         "mes_proximo": mes_proximo,
         "ano_proximo": ano_proximo,
+        "dia_hoje": dia_hoje,
     })
